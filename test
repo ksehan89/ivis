@@ -5,20 +5,5 @@ git test con
 
 4. test more
 5. tedt done
-conflict test 1111
-git conflict test 3333
 
-master edit 6666
-test 55555
-
-commit edit test
-
-commit1
-commit3
-
-commit test 121212
-
-test06 branch rebase example test
-
-master edit
-AAA
+git branch test
