@@ -1,0 +1,29 @@
+package commonapi.examples
+
+interface E01HelloWorld {
+	version { major 0 minor 1}
+
+	attribute Int32 x
+
+	broadcast myStatus {
+		out {
+			Int32 myCurrentValue
+			stdErrorTypeEnum Value2		
+		}
+	}
+
+	enumeration stdErrorTypeEnum {
+		NO_FAULT
+		MY_FAULT
+	}
+
+	method sayHello {
+		in {
+			String name
+		}
+		out {
+			String message
+		}
+	}
+}
+
