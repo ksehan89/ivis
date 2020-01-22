@@ -22,10 +22,6 @@
 #define COMMONAPI_INTERNAL_COMPILATION
 #endif
 
-#include <CommonAPI/InputStream.hpp>
-#include <CommonAPI/OutputStream.hpp>
-#include <cstdint>
-#include <vector>
 
 #include <mutex>
 
@@ -47,27 +43,27 @@ class Test_CodeStubAdapter
     : public virtual CommonAPI::StubAdapter,
       public virtual Test_Code {
  public:
-    ///Notifies all remote listeners about a change of value of the attribute speedType.
-    virtual void fireSpeedTypeAttributeChanged(const ::v1::proj::testcode::Test_Code::SpeedType& speedType) = 0;
     ///Notifies all remote listeners about a change of value of the attribute speedValue.
     virtual void fireSpeedValueAttributeChanged(const int32_t& speedValue) = 0;
+    ///Notifies all remote listeners about a change of value of the attribute rpmValue.
+    virtual void fireRpmValueAttributeChanged(const int32_t& rpmValue) = 0;
 
 
 
     virtual void deactivateManagedInstances() = 0;
 
-    void lockSpeedTypeAttribute(bool _lockAccess) {
-        if (_lockAccess) {
-            speedTypeMutex_.lock();
-        } else {
-            speedTypeMutex_.unlock();
-        }
-    }
     void lockSpeedValueAttribute(bool _lockAccess) {
         if (_lockAccess) {
             speedValueMutex_.lock();
         } else {
             speedValueMutex_.unlock();
+        }
+    }
+    void lockRpmValueAttribute(bool _lockAccess) {
+        if (_lockAccess) {
+            rpmValueMutex_.lock();
+        } else {
+            rpmValueMutex_.unlock();
         }
     }
 
@@ -77,8 +73,8 @@ protected:
      * subscribed to the selective broadcasts
      */
 
-    std::recursive_mutex speedTypeMutex_;
     std::recursive_mutex speedValueMutex_;
+    std::recursive_mutex rpmValueMutex_;
 };
 
 /**
@@ -98,6 +94,14 @@ class Test_CodeStubRemoteEvent
 public:
     virtual ~Test_CodeStubRemoteEvent() { }
 
+    /// Verification callback for remote set requests on the attribute speedValue
+    virtual bool onRemoteSetSpeedValueAttribute(const std::shared_ptr<CommonAPI::ClientId> _client, int32_t _value) = 0;
+    /// Action callback for remote set requests on the attribute speedValue
+    virtual void onRemoteSpeedValueAttributeChanged() = 0;
+    /// Verification callback for remote set requests on the attribute rpmValue
+    virtual bool onRemoteSetRpmValueAttribute(const std::shared_ptr<CommonAPI::ClientId> _client, int32_t _value) = 0;
+    /// Action callback for remote set requests on the attribute rpmValue
+    virtual void onRemoteRpmValueAttributeChanged() = 0;
 };
 
 /**
@@ -110,28 +114,11 @@ class Test_CodeStub
     : public virtual CommonAPI::Stub<Test_CodeStubAdapter, Test_CodeStubRemoteEvent>
 {
 public:
-    typedef std::function<void ()>setSpeedTypeReply_t;
-    typedef std::function<void (Test_Code::SpeedType _show)>getSpeedTypeReply_t;
-    typedef std::function<void ()>setSpeedValueReply_t;
-    typedef std::function<void (int32_t _show)>getSpeedValueReply_t;
 
     virtual ~Test_CodeStub() {}
     virtual const CommonAPI::Version& getInterfaceVersion(std::shared_ptr<CommonAPI::ClientId> clientId) = 0;
     void lockInterfaceVersionAttribute(bool _lockAccess) { static_cast<void>(_lockAccess); }
 
-    /// Provides getter access to the attribute speedType
-    virtual const ::v1::proj::testcode::Test_Code::SpeedType &getSpeedTypeAttribute(const std::shared_ptr<CommonAPI::ClientId> _client) = 0;
-    /// sets attribute with the given value and propagates it to the adapter
-    virtual void fireSpeedTypeAttributeChanged(::v1::proj::testcode::Test_Code::SpeedType _value) {
-    auto stubAdapter = CommonAPI::Stub<Test_CodeStubAdapter, Test_CodeStubRemoteEvent>::stubAdapter_.lock();
-    if (stubAdapter)
-        stubAdapter->fireSpeedTypeAttributeChanged(_value);
-    }
-    void lockSpeedTypeAttribute(bool _lockAccess) {
-        auto stubAdapter = CommonAPI::Stub<Test_CodeStubAdapter, Test_CodeStubRemoteEvent>::stubAdapter_.lock();
-        if (stubAdapter)
-            stubAdapter->lockSpeedTypeAttribute(_lockAccess);
-    }
     /// Provides getter access to the attribute speedValue
     virtual const int32_t &getSpeedValueAttribute(const std::shared_ptr<CommonAPI::ClientId> _client) = 0;
     /// sets attribute with the given value and propagates it to the adapter
@@ -145,15 +132,20 @@ public:
         if (stubAdapter)
             stubAdapter->lockSpeedValueAttribute(_lockAccess);
     }
+    /// Provides getter access to the attribute rpmValue
+    virtual const int32_t &getRpmValueAttribute(const std::shared_ptr<CommonAPI::ClientId> _client) = 0;
+    /// sets attribute with the given value and propagates it to the adapter
+    virtual void fireRpmValueAttributeChanged(int32_t _value) {
+    auto stubAdapter = CommonAPI::Stub<Test_CodeStubAdapter, Test_CodeStubRemoteEvent>::stubAdapter_.lock();
+    if (stubAdapter)
+        stubAdapter->fireRpmValueAttributeChanged(_value);
+    }
+    void lockRpmValueAttribute(bool _lockAccess) {
+        auto stubAdapter = CommonAPI::Stub<Test_CodeStubAdapter, Test_CodeStubRemoteEvent>::stubAdapter_.lock();
+        if (stubAdapter)
+            stubAdapter->lockRpmValueAttribute(_lockAccess);
+    }
 
-    /// This is the method that will be called on remote calls on the method setSpeedType.
-    virtual void setSpeedType(const std::shared_ptr<CommonAPI::ClientId> _client, Test_Code::SpeedType _type, setSpeedTypeReply_t _reply) = 0;
-    /// This is the method that will be called on remote calls on the method getSpeedType.
-    virtual void getSpeedType(const std::shared_ptr<CommonAPI::ClientId> _client, getSpeedTypeReply_t _reply) = 0;
-    /// This is the method that will be called on remote calls on the method setSpeedValue.
-    virtual void setSpeedValue(const std::shared_ptr<CommonAPI::ClientId> _client, int32_t _show, setSpeedValueReply_t _reply) = 0;
-    /// This is the method that will be called on remote calls on the method getSpeedValue.
-    virtual void getSpeedValue(const std::shared_ptr<CommonAPI::ClientId> _client, getSpeedValueReply_t _reply) = 0;
 
     
     using CommonAPI::Stub<Test_CodeStubAdapter, Test_CodeStubRemoteEvent>::initStubAdapter;

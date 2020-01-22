@@ -51,30 +51,36 @@ public:
 
     COMMONAPI_EXPORT const CommonAPI::Version& getInterfaceVersion(std::shared_ptr<CommonAPI::ClientId> _client);
 
-    COMMONAPI_EXPORT virtual const ::v1::proj::testcode::Test_Code::SpeedType& getSpeedTypeAttribute();
-    COMMONAPI_EXPORT virtual const ::v1::proj::testcode::Test_Code::SpeedType& getSpeedTypeAttribute(const std::shared_ptr<CommonAPI::ClientId> _client);
-    COMMONAPI_EXPORT virtual void setSpeedTypeAttribute(::v1::proj::testcode::Test_Code::SpeedType _value);
     COMMONAPI_EXPORT virtual const int32_t& getSpeedValueAttribute();
     COMMONAPI_EXPORT virtual const int32_t& getSpeedValueAttribute(const std::shared_ptr<CommonAPI::ClientId> _client);
     COMMONAPI_EXPORT virtual void setSpeedValueAttribute(int32_t _value);
+    COMMONAPI_EXPORT virtual void setSpeedValueAttribute(const std::shared_ptr<CommonAPI::ClientId> _client, int32_t _value);
+    COMMONAPI_EXPORT virtual const int32_t& getRpmValueAttribute();
+    COMMONAPI_EXPORT virtual const int32_t& getRpmValueAttribute(const std::shared_ptr<CommonAPI::ClientId> _client);
+    COMMONAPI_EXPORT virtual void setRpmValueAttribute(int32_t _value);
+    COMMONAPI_EXPORT virtual void setRpmValueAttribute(const std::shared_ptr<CommonAPI::ClientId> _client, int32_t _value);
 
-    COMMONAPI_EXPORT virtual void setSpeedType(const std::shared_ptr<CommonAPI::ClientId> _client, Test_Code::SpeedType _type, setSpeedTypeReply_t _reply);
-    COMMONAPI_EXPORT virtual void getSpeedType(const std::shared_ptr<CommonAPI::ClientId> _client, getSpeedTypeReply_t _reply);
-    COMMONAPI_EXPORT virtual void setSpeedValue(const std::shared_ptr<CommonAPI::ClientId> _client, int32_t _show, setSpeedValueReply_t _reply);
-    COMMONAPI_EXPORT virtual void getSpeedValue(const std::shared_ptr<CommonAPI::ClientId> _client, getSpeedValueReply_t _reply);
 
 
     
 protected:
-    COMMONAPI_EXPORT virtual bool trySetSpeedTypeAttribute(::v1::proj::testcode::Test_Code::SpeedType _value);
-    COMMONAPI_EXPORT virtual bool validateSpeedTypeAttributeRequestedValue(const ::v1::proj::testcode::Test_Code::SpeedType &_value);
     COMMONAPI_EXPORT virtual bool trySetSpeedValueAttribute(int32_t _value);
     COMMONAPI_EXPORT virtual bool validateSpeedValueAttributeRequestedValue(const int32_t &_value);
+    COMMONAPI_EXPORT virtual void onRemoteSpeedValueAttributeChanged();
+    COMMONAPI_EXPORT virtual bool trySetRpmValueAttribute(int32_t _value);
+    COMMONAPI_EXPORT virtual bool validateRpmValueAttributeRequestedValue(const int32_t &_value);
+    COMMONAPI_EXPORT virtual void onRemoteRpmValueAttributeChanged();
     class COMMONAPI_EXPORT_CLASS_EXPLICIT RemoteEventHandler: public virtual Test_CodeStubRemoteEvent {
     public:
         COMMONAPI_EXPORT RemoteEventHandler(Test_CodeStubDefault *_defaultStub);
 
+        COMMONAPI_EXPORT virtual bool onRemoteSetSpeedValueAttribute(int32_t _value);
+        COMMONAPI_EXPORT virtual bool onRemoteSetSpeedValueAttribute(const std::shared_ptr<CommonAPI::ClientId> _client, int32_t _value);
+        COMMONAPI_EXPORT virtual void onRemoteSpeedValueAttributeChanged();
 
+        COMMONAPI_EXPORT virtual bool onRemoteSetRpmValueAttribute(int32_t _value);
+        COMMONAPI_EXPORT virtual bool onRemoteSetRpmValueAttribute(const std::shared_ptr<CommonAPI::ClientId> _client, int32_t _value);
+        COMMONAPI_EXPORT virtual void onRemoteRpmValueAttributeChanged();
 
 
     private:
@@ -85,8 +91,8 @@ protected:
 
 private:
 
-    ::v1::proj::testcode::Test_Code::SpeedType speedTypeAttributeValue_ {};
     int32_t speedValueAttributeValue_ {};
+    int32_t rpmValueAttributeValue_ {};
 
     CommonAPI::Version interfaceVersion_;
 };

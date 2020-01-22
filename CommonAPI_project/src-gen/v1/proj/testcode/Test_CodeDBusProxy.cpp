@@ -33,163 +33,19 @@ Test_CodeDBusProxy::Test_CodeDBusProxy(
     const CommonAPI::DBus::DBusAddress &_address,
     const std::shared_ptr<CommonAPI::DBus::DBusProxyConnection> &_connection)
     :   CommonAPI::DBus::DBusProxy(_address, _connection)
-,        speedType_(*this, "onSpeedTypeAttributeChanged", "i", "getSpeedTypeAttribute", static_cast< CommonAPI::EmptyDeployment* >(nullptr)),
-        speedValue_(*this, "onSpeedValueAttributeChanged", "i", "getSpeedValueAttribute", static_cast< CommonAPI::DBus::IntegerDeployment* >(nullptr))
+,        speedValue_(*this, "onSpeedValueAttributeChanged", "setSpeedValueAttribute", "i", "getSpeedValueAttribute", static_cast< CommonAPI::DBus::IntegerDeployment* >(nullptr)),
+        rpmValue_(*this, "onRpmValueAttributeChanged", "setRpmValueAttribute", "i", "getRpmValueAttribute", static_cast< CommonAPI::DBus::IntegerDeployment* >(nullptr))
 {
 }
 
-      Test_CodeDBusProxy::SpeedTypeAttribute& Test_CodeDBusProxy::getSpeedTypeAttribute() {
-          return speedType_;
-      }
       Test_CodeDBusProxy::SpeedValueAttribute& Test_CodeDBusProxy::getSpeedValueAttribute() {
           return speedValue_;
       }
+      Test_CodeDBusProxy::RpmValueAttribute& Test_CodeDBusProxy::getRpmValueAttribute() {
+          return rpmValue_;
+      }
 
 
-    void Test_CodeDBusProxy::setSpeedType(const Test_Code::SpeedType &_type, CommonAPI::CallStatus &_internalCallStatus, const CommonAPI::CallInfo *_info) {
-        CommonAPI::Deployable< Test_Code::SpeedType, CommonAPI::EmptyDeployment> deploy_type(_type, static_cast< CommonAPI::EmptyDeployment* >(nullptr));
-        CommonAPI::DBus::DBusProxyHelper<
-            CommonAPI::DBus::DBusSerializableArguments<
-            CommonAPI::Deployable< Test_Code::SpeedType, CommonAPI::EmptyDeployment >
-            >,
-            CommonAPI::DBus::DBusSerializableArguments<
-            >
-            >::callMethodWithReply(
-        *this,
-        "setSpeedType",
-        "i",
-(_info ? _info : &CommonAPI::DBus::defaultCallInfo),
-deploy_type,
-_internalCallStatus);
-}
-    std::future<CommonAPI::CallStatus> Test_CodeDBusProxy::setSpeedTypeAsync(const Test_Code::SpeedType &_type, SetSpeedTypeAsyncCallback _callback, const CommonAPI::CallInfo *_info) {
-        CommonAPI::Deployable< Test_Code::SpeedType, CommonAPI::EmptyDeployment> deploy_type(_type, static_cast< CommonAPI::EmptyDeployment* >(nullptr));
-        return CommonAPI::DBus::DBusProxyHelper<
-            CommonAPI::DBus::DBusSerializableArguments<
-            CommonAPI::Deployable< Test_Code::SpeedType, CommonAPI::EmptyDeployment >
-            >,
-            CommonAPI::DBus::DBusSerializableArguments<
-            >
-            >::callMethodAsync(
-        *this,
-        "setSpeedType",
-        "i",
-        (_info ? _info : &CommonAPI::DBus::defaultCallInfo),
-        deploy_type,
-        [_callback] (CommonAPI::CallStatus _internalCallStatus) {
-            if (_callback)
-                _callback(_internalCallStatus);
-        },
-        std::make_tuple());
-    }
-    void Test_CodeDBusProxy::getSpeedType(CommonAPI::CallStatus &_internalCallStatus, Test_Code::SpeedType &_show, const CommonAPI::CallInfo *_info) {
-        CommonAPI::Deployable< Test_Code::SpeedType, CommonAPI::EmptyDeployment> deploy_show(static_cast< CommonAPI::EmptyDeployment* >(nullptr));
-        CommonAPI::DBus::DBusProxyHelper<
-            CommonAPI::DBus::DBusSerializableArguments<
-            >,
-            CommonAPI::DBus::DBusSerializableArguments<
-            CommonAPI::Deployable< Test_Code::SpeedType,CommonAPI::EmptyDeployment>
-            >
-            >::callMethodWithReply(
-        *this,
-        "getSpeedType",
-        "",
-(_info ? _info : &CommonAPI::DBus::defaultCallInfo),
-_internalCallStatus,
-deploy_show);
-_show = deploy_show.getValue();
-}
-    std::future<CommonAPI::CallStatus> Test_CodeDBusProxy::getSpeedTypeAsync(GetSpeedTypeAsyncCallback _callback, const CommonAPI::CallInfo *_info) {
-        CommonAPI::Deployable< Test_Code::SpeedType, CommonAPI::EmptyDeployment> deploy_show(static_cast< CommonAPI::EmptyDeployment* >(nullptr));
-        return CommonAPI::DBus::DBusProxyHelper<
-            CommonAPI::DBus::DBusSerializableArguments<
-            >,
-            CommonAPI::DBus::DBusSerializableArguments<
-            CommonAPI::Deployable< Test_Code::SpeedType,CommonAPI::EmptyDeployment>
-            >
-            >::callMethodAsync(
-        *this,
-        "getSpeedType",
-        "",
-        (_info ? _info : &CommonAPI::DBus::defaultCallInfo),
-        [_callback] (CommonAPI::CallStatus _internalCallStatus, CommonAPI::Deployable< Test_Code::SpeedType, CommonAPI::EmptyDeployment > _show) {
-            if (_callback)
-                _callback(_internalCallStatus, _show.getValue());
-        },
-        std::make_tuple(deploy_show));
-    }
-    void Test_CodeDBusProxy::setSpeedValue(const int32_t &_show, CommonAPI::CallStatus &_internalCallStatus, const CommonAPI::CallInfo *_info) {
-        CommonAPI::Deployable< int32_t, CommonAPI::DBus::IntegerDeployment> deploy_show(_show, static_cast< CommonAPI::DBus::IntegerDeployment* >(nullptr));
-        CommonAPI::DBus::DBusProxyHelper<
-            CommonAPI::DBus::DBusSerializableArguments<
-            CommonAPI::Deployable< int32_t, CommonAPI::DBus::IntegerDeployment >
-            >,
-            CommonAPI::DBus::DBusSerializableArguments<
-            >
-            >::callMethodWithReply(
-        *this,
-        "setSpeedValue",
-        "i",
-(_info ? _info : &CommonAPI::DBus::defaultCallInfo),
-deploy_show,
-_internalCallStatus);
-}
-    std::future<CommonAPI::CallStatus> Test_CodeDBusProxy::setSpeedValueAsync(const int32_t &_show, SetSpeedValueAsyncCallback _callback, const CommonAPI::CallInfo *_info) {
-        CommonAPI::Deployable< int32_t, CommonAPI::DBus::IntegerDeployment> deploy_show(_show, static_cast< CommonAPI::DBus::IntegerDeployment* >(nullptr));
-        return CommonAPI::DBus::DBusProxyHelper<
-            CommonAPI::DBus::DBusSerializableArguments<
-            CommonAPI::Deployable< int32_t, CommonAPI::DBus::IntegerDeployment >
-            >,
-            CommonAPI::DBus::DBusSerializableArguments<
-            >
-            >::callMethodAsync(
-        *this,
-        "setSpeedValue",
-        "i",
-        (_info ? _info : &CommonAPI::DBus::defaultCallInfo),
-        deploy_show,
-        [_callback] (CommonAPI::CallStatus _internalCallStatus) {
-            if (_callback)
-                _callback(_internalCallStatus);
-        },
-        std::make_tuple());
-    }
-    void Test_CodeDBusProxy::getSpeedValue(CommonAPI::CallStatus &_internalCallStatus, int32_t &_show, const CommonAPI::CallInfo *_info) {
-        CommonAPI::Deployable< int32_t, CommonAPI::DBus::IntegerDeployment> deploy_show(static_cast< CommonAPI::DBus::IntegerDeployment* >(nullptr));
-        CommonAPI::DBus::DBusProxyHelper<
-            CommonAPI::DBus::DBusSerializableArguments<
-            >,
-            CommonAPI::DBus::DBusSerializableArguments<
-            CommonAPI::Deployable< int32_t,CommonAPI::DBus::IntegerDeployment>
-            >
-            >::callMethodWithReply(
-        *this,
-        "getSpeedValue",
-        "",
-(_info ? _info : &CommonAPI::DBus::defaultCallInfo),
-_internalCallStatus,
-deploy_show);
-_show = deploy_show.getValue();
-}
-    std::future<CommonAPI::CallStatus> Test_CodeDBusProxy::getSpeedValueAsync(GetSpeedValueAsyncCallback _callback, const CommonAPI::CallInfo *_info) {
-        CommonAPI::Deployable< int32_t, CommonAPI::DBus::IntegerDeployment> deploy_show(static_cast< CommonAPI::DBus::IntegerDeployment* >(nullptr));
-        return CommonAPI::DBus::DBusProxyHelper<
-            CommonAPI::DBus::DBusSerializableArguments<
-            >,
-            CommonAPI::DBus::DBusSerializableArguments<
-            CommonAPI::Deployable< int32_t,CommonAPI::DBus::IntegerDeployment>
-            >
-            >::callMethodAsync(
-        *this,
-        "getSpeedValue",
-        "",
-        (_info ? _info : &CommonAPI::DBus::defaultCallInfo),
-        [_callback] (CommonAPI::CallStatus _internalCallStatus, CommonAPI::Deployable< int32_t, CommonAPI::DBus::IntegerDeployment > _show) {
-            if (_callback)
-                _callback(_internalCallStatus, _show.getValue());
-        },
-        std::make_tuple(deploy_show));
-    }
 
 
 void Test_CodeDBusProxy::getOwnVersion(uint16_t& ownVersionMajor, uint16_t& ownVersionMinor) const {

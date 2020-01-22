@@ -12,7 +12,6 @@
 
 #include <v1/proj/testcode/Test_CodeStub.hpp>
 #include "v1/proj/testcode/Test_CodeDBusDeployment.hpp"
-#include <v1/proj/testcode/Test_CodeDBusDeployment.hpp>
 
 #if !defined (COMMONAPI_INTERNAL_COMPILATION)
 #define COMMONAPI_INTERNAL_COMPILATION
@@ -51,9 +50,9 @@ public:
         return Test_Code::getInterface();
     }
 
-    void fireSpeedTypeAttributeChanged(const ::v1::proj::testcode::Test_Code::SpeedType& value);
-
     void fireSpeedValueAttributeChanged(const int32_t& value);
+
+    void fireRpmValueAttributeChanged(const int32_t& value);
 
     void deactivateManagedInstances() {
     }
@@ -65,54 +64,25 @@ public:
 
     static CommonAPI::DBus::DBusGetAttributeStubDispatcher<
             ::v1::proj::testcode::Test_CodeStub,
-            ::v1::proj::testcode::Test_Code::SpeedType
-            > getSpeedTypeAttributeStubDispatcher;
+            int32_t,
+            CommonAPI::DBus::IntegerDeployment
+            > getSpeedValueAttributeStubDispatcher;
+    static CommonAPI::DBus::DBusSetObservableAttributeStubDispatcher<
+            ::v1::proj::testcode::Test_CodeStub,
+            int32_t,
+            CommonAPI::DBus::IntegerDeployment
+            > setSpeedValueAttributeStubDispatcher;
 
     static CommonAPI::DBus::DBusGetAttributeStubDispatcher<
             ::v1::proj::testcode::Test_CodeStub,
             int32_t,
             CommonAPI::DBus::IntegerDeployment
-            > getSpeedValueAttributeStubDispatcher;
-
-    
-    static CommonAPI::DBus::DBusMethodWithReplyStubDispatcher<
-        ::v1::proj::testcode::Test_CodeStub,
-        std::tuple< Test_Code::SpeedType>,
-        std::tuple< >,
-        std::tuple< CommonAPI::EmptyDeployment>,
-        std::tuple< >
-    
-        > setSpeedTypeStubDispatcher;
-
-    
-    static CommonAPI::DBus::DBusMethodWithReplyStubDispatcher<
-        ::v1::proj::testcode::Test_CodeStub,
-        std::tuple< >,
-        std::tuple< Test_Code::SpeedType>,
-        std::tuple< >,
-        std::tuple< CommonAPI::EmptyDeployment>
-    
-        > getSpeedTypeStubDispatcher;
-
-    
-    static CommonAPI::DBus::DBusMethodWithReplyStubDispatcher<
-        ::v1::proj::testcode::Test_CodeStub,
-        std::tuple< int32_t>,
-        std::tuple< >,
-        std::tuple< CommonAPI::DBus::IntegerDeployment>,
-        std::tuple< >
-    
-        > setSpeedValueStubDispatcher;
-
-    
-    static CommonAPI::DBus::DBusMethodWithReplyStubDispatcher<
-        ::v1::proj::testcode::Test_CodeStub,
-        std::tuple< >,
-        std::tuple< int32_t>,
-        std::tuple< >,
-        std::tuple< CommonAPI::DBus::IntegerDeployment>
-    
-        > getSpeedValueStubDispatcher;
+            > getRpmValueAttributeStubDispatcher;
+    static CommonAPI::DBus::DBusSetObservableAttributeStubDispatcher<
+            ::v1::proj::testcode::Test_CodeStub,
+            int32_t,
+            CommonAPI::DBus::IntegerDeployment
+            > setRpmValueAttributeStubDispatcher;
 
     Test_CodeDBusStubAdapterInternal(
         const CommonAPI::DBus::DBusAddress &_address,
@@ -120,12 +90,10 @@ public:
         const std::shared_ptr<_Stub> &_stub)
     : CommonAPI::DBus::DBusStubAdapter(_address, _connection,false),
       Test_CodeDBusStubAdapterHelper(_address, _connection, false, _stub) {
-        Test_CodeDBusStubAdapterHelper::addStubDispatcher({ "getSpeedTypeAttribute", "" }, &getSpeedTypeAttributeStubDispatcher);
         Test_CodeDBusStubAdapterHelper::addStubDispatcher({ "getSpeedValueAttribute", "" }, &getSpeedValueAttributeStubDispatcher);
-        Test_CodeDBusStubAdapterHelper::addStubDispatcher({ "setSpeedType", "i" }, &setSpeedTypeStubDispatcher);
-        Test_CodeDBusStubAdapterHelper::addStubDispatcher({ "getSpeedType", "" }, &getSpeedTypeStubDispatcher);
-        Test_CodeDBusStubAdapterHelper::addStubDispatcher({ "setSpeedValue", "i" }, &setSpeedValueStubDispatcher);
-        Test_CodeDBusStubAdapterHelper::addStubDispatcher({ "getSpeedValue", "" }, &getSpeedValueStubDispatcher);
+        Test_CodeDBusStubAdapterHelper::addStubDispatcher({ "setSpeedValueAttribute", "i" }, &setSpeedValueAttributeStubDispatcher);
+        Test_CodeDBusStubAdapterHelper::addStubDispatcher({ "getRpmValueAttribute", "" }, &getRpmValueAttributeStubDispatcher);
+        Test_CodeDBusStubAdapterHelper::addStubDispatcher({ "setRpmValueAttribute", "i" }, &setRpmValueAttributeStubDispatcher);
         Test_CodeDBusStubAdapterHelper::addStubDispatcher({ "getInterfaceVersion", "" }, &getTest_CodeInterfaceVersionStubDispatcher);
     }
 
@@ -135,30 +103,26 @@ protected:
             "<method name=\"getInterfaceVersion\">\n"
                 "<arg name=\"value\" type=\"uu\" direction=\"out\" />"
             "</method>\n"
-            "<method name=\"getSpeedTypeAttribute\">\n"
-            "<arg name=\"value\" type=\"i\" direction=\"out\" />"
-            "</method>\n"
-            "<signal name=\"onSpeedTypeAttributeChanged\">\n"
-            "<arg name=\"changedValue\" type=\"i\" />\n"
-            "</signal>\n"
             "<method name=\"getSpeedValueAttribute\">\n"
             "<arg name=\"value\" type=\"i\" direction=\"out\" />"
+            "</method>\n"
+            "<method name=\"setSpeedValueAttribute\">\n"
+            "<arg name=\"requestedValue\" type=\"i\" direction=\"in\" />\n"
+            "<arg name=\"setValue\" type=\"i\" direction=\"out\" />\n"
             "</method>\n"
             "<signal name=\"onSpeedValueAttributeChanged\">\n"
             "<arg name=\"changedValue\" type=\"i\" />\n"
             "</signal>\n"
-            "<method name=\"setSpeedType\">\n"
-            "<arg name=\"_type\" type=\"i\" direction=\"in\" />\n"
+            "<method name=\"getRpmValueAttribute\">\n"
+            "<arg name=\"value\" type=\"i\" direction=\"out\" />"
             "</method>\n"
-            "<method name=\"getSpeedType\">\n"
-            "<arg name=\"_show\" type=\"i\" direction=\"out\" />\n"
+            "<method name=\"setRpmValueAttribute\">\n"
+            "<arg name=\"requestedValue\" type=\"i\" direction=\"in\" />\n"
+            "<arg name=\"setValue\" type=\"i\" direction=\"out\" />\n"
             "</method>\n"
-            "<method name=\"setSpeedValue\">\n"
-            "<arg name=\"_show\" type=\"i\" direction=\"in\" />\n"
-            "</method>\n"
-            "<method name=\"getSpeedValue\">\n"
-            "<arg name=\"_show\" type=\"i\" direction=\"out\" />\n"
-            "</method>\n"
+            "<signal name=\"onRpmValueAttributeChanged\">\n"
+            "<arg name=\"changedValue\" type=\"i\" />\n"
+            "</signal>\n"
             ;
         return introspectionData.c_str();
     }
@@ -176,16 +140,6 @@ CommonAPI::DBus::DBusGetAttributeStubDispatcher<
 template <typename _Stub, typename... _Stubs>
 CommonAPI::DBus::DBusGetAttributeStubDispatcher<
         ::v1::proj::testcode::Test_CodeStub,
-        ::v1::proj::testcode::Test_Code::SpeedType
-        > Test_CodeDBusStubAdapterInternal<_Stub, _Stubs...>::getSpeedTypeAttributeStubDispatcher(
-            &::v1::proj::testcode::Test_CodeStub::lockSpeedTypeAttribute,
-            &::v1::proj::testcode::Test_CodeStub::getSpeedTypeAttribute
-            , "i"
-            );
-
-template <typename _Stub, typename... _Stubs>
-CommonAPI::DBus::DBusGetAttributeStubDispatcher<
-        ::v1::proj::testcode::Test_CodeStub,
         int32_t,
         CommonAPI::DBus::IntegerDeployment
         > Test_CodeDBusStubAdapterInternal<_Stub, _Stubs...>::getSpeedValueAttributeStubDispatcher(
@@ -193,76 +147,43 @@ CommonAPI::DBus::DBusGetAttributeStubDispatcher<
             &::v1::proj::testcode::Test_CodeStub::getSpeedValueAttribute
             , "i"
             );
-
+template <typename _Stub, typename... _Stubs>
+CommonAPI::DBus::DBusSetObservableAttributeStubDispatcher<
+        ::v1::proj::testcode::Test_CodeStub,
+        int32_t,
+        CommonAPI::DBus::IntegerDeployment
+        > Test_CodeDBusStubAdapterInternal<_Stub, _Stubs...>::setSpeedValueAttributeStubDispatcher(
+                &::v1::proj::testcode::Test_CodeStub::lockSpeedValueAttribute,
+                &::v1::proj::testcode::Test_CodeStub::getSpeedValueAttribute,
+                &Test_CodeStubRemoteEvent::onRemoteSetSpeedValueAttribute,
+                &Test_CodeStubRemoteEvent::onRemoteSpeedValueAttributeChanged
+                ,&Test_CodeStubAdapter::fireSpeedValueAttributeChanged
+                ,"i"
+                );
 
 template <typename _Stub, typename... _Stubs>
-CommonAPI::DBus::DBusMethodWithReplyStubDispatcher<
-    ::v1::proj::testcode::Test_CodeStub,
-    std::tuple< Test_Code::SpeedType>,
-    std::tuple< >,
-    std::tuple< CommonAPI::EmptyDeployment>,
-    std::tuple< >
-
-    > Test_CodeDBusStubAdapterInternal<_Stub, _Stubs...>::setSpeedTypeStubDispatcher(
-    &Test_CodeStub::setSpeedType, "",
-    std::make_tuple(static_cast< CommonAPI::EmptyDeployment* >(nullptr)),
-    std::make_tuple());
-
-
+CommonAPI::DBus::DBusGetAttributeStubDispatcher<
+        ::v1::proj::testcode::Test_CodeStub,
+        int32_t,
+        CommonAPI::DBus::IntegerDeployment
+        > Test_CodeDBusStubAdapterInternal<_Stub, _Stubs...>::getRpmValueAttributeStubDispatcher(
+            &::v1::proj::testcode::Test_CodeStub::lockRpmValueAttribute,
+            &::v1::proj::testcode::Test_CodeStub::getRpmValueAttribute
+            , "i"
+            );
 template <typename _Stub, typename... _Stubs>
-CommonAPI::DBus::DBusMethodWithReplyStubDispatcher<
-    ::v1::proj::testcode::Test_CodeStub,
-    std::tuple< >,
-    std::tuple< Test_Code::SpeedType>,
-    std::tuple< >,
-    std::tuple< CommonAPI::EmptyDeployment>
-
-    > Test_CodeDBusStubAdapterInternal<_Stub, _Stubs...>::getSpeedTypeStubDispatcher(
-    &Test_CodeStub::getSpeedType, "i",
-    std::make_tuple(),
-    std::make_tuple(static_cast< CommonAPI::EmptyDeployment* >(nullptr)));
-
-
-template <typename _Stub, typename... _Stubs>
-CommonAPI::DBus::DBusMethodWithReplyStubDispatcher<
-    ::v1::proj::testcode::Test_CodeStub,
-    std::tuple< int32_t>,
-    std::tuple< >,
-    std::tuple< CommonAPI::DBus::IntegerDeployment>,
-    std::tuple< >
-
-    > Test_CodeDBusStubAdapterInternal<_Stub, _Stubs...>::setSpeedValueStubDispatcher(
-    &Test_CodeStub::setSpeedValue, "",
-    std::make_tuple(static_cast< CommonAPI::DBus::IntegerDeployment* >(nullptr)),
-    std::make_tuple());
-
-
-template <typename _Stub, typename... _Stubs>
-CommonAPI::DBus::DBusMethodWithReplyStubDispatcher<
-    ::v1::proj::testcode::Test_CodeStub,
-    std::tuple< >,
-    std::tuple< int32_t>,
-    std::tuple< >,
-    std::tuple< CommonAPI::DBus::IntegerDeployment>
-
-    > Test_CodeDBusStubAdapterInternal<_Stub, _Stubs...>::getSpeedValueStubDispatcher(
-    &Test_CodeStub::getSpeedValue, "i",
-    std::make_tuple(),
-    std::make_tuple(static_cast< CommonAPI::DBus::IntegerDeployment* >(nullptr)));
-
-template <typename _Stub, typename... _Stubs>
-void Test_CodeDBusStubAdapterInternal<_Stub, _Stubs...>::fireSpeedTypeAttributeChanged(const ::v1::proj::testcode::Test_Code::SpeedType& value) {
-    CommonAPI::DBus::DBusStubSignalHelper<CommonAPI::DBus::DBusSerializableArguments<
-    ::v1::proj::testcode::Test_Code::SpeedType
-    >>
-        ::sendSignal(
-            *this,
-            "onSpeedTypeAttributeChanged",
-            "i",
-            value
-    
-    );
-}
+CommonAPI::DBus::DBusSetObservableAttributeStubDispatcher<
+        ::v1::proj::testcode::Test_CodeStub,
+        int32_t,
+        CommonAPI::DBus::IntegerDeployment
+        > Test_CodeDBusStubAdapterInternal<_Stub, _Stubs...>::setRpmValueAttributeStubDispatcher(
+                &::v1::proj::testcode::Test_CodeStub::lockRpmValueAttribute,
+                &::v1::proj::testcode::Test_CodeStub::getRpmValueAttribute,
+                &Test_CodeStubRemoteEvent::onRemoteSetRpmValueAttribute,
+                &Test_CodeStubRemoteEvent::onRemoteRpmValueAttributeChanged
+                ,&Test_CodeStubAdapter::fireRpmValueAttributeChanged
+                ,"i"
+                );
 
 template <typename _Stub, typename... _Stubs>
 void Test_CodeDBusStubAdapterInternal<_Stub, _Stubs...>::fireSpeedValueAttributeChanged(const int32_t& value) {
@@ -276,6 +197,24 @@ void Test_CodeDBusStubAdapterInternal<_Stub, _Stubs...>::fireSpeedValueAttribute
         ::sendSignal(
             *this,
             "onSpeedValueAttributeChanged",
+            "i",
+            deployedValue
+    
+    );
+}
+
+template <typename _Stub, typename... _Stubs>
+void Test_CodeDBusStubAdapterInternal<_Stub, _Stubs...>::fireRpmValueAttributeChanged(const int32_t& value) {
+    CommonAPI::Deployable< int32_t, CommonAPI::DBus::IntegerDeployment> deployedValue(value, static_cast< CommonAPI::DBus::IntegerDeployment* >(nullptr));
+    CommonAPI::DBus::DBusStubSignalHelper<CommonAPI::DBus::DBusSerializableArguments<
+    CommonAPI::Deployable<
+        int32_t,
+        CommonAPI::DBus::IntegerDeployment
+    >
+    >>
+        ::sendSignal(
+            *this,
+            "onRpmValueAttributeChanged",
             "i",
             deployedValue
     

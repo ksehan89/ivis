@@ -18,15 +18,9 @@
 #define COMMONAPI_INTERNAL_COMPILATION
 #endif
 
-#include <CommonAPI/InputStream.hpp>
-#include <CommonAPI/OutputStream.hpp>
-#include <cstdint>
-#include <vector>
 
 #include <CommonAPI/Attribute.hpp>
 #include <CommonAPI/Proxy.hpp>
-#include <functional>
-#include <future>
 
 #undef COMMONAPI_INTERNAL_COMPILATION
 
@@ -37,26 +31,14 @@ namespace testcode {
 class Test_CodeProxyBase
     : virtual public CommonAPI::Proxy {
 public:
-    typedef CommonAPI::ObservableReadonlyAttribute< ::v1::proj::testcode::Test_Code::SpeedType> SpeedTypeAttribute;
-    typedef CommonAPI::ObservableReadonlyAttribute< int32_t> SpeedValueAttribute;
+    typedef CommonAPI::ObservableAttribute< int32_t> SpeedValueAttribute;
+    typedef CommonAPI::ObservableAttribute< int32_t> RpmValueAttribute;
 
-    typedef std::function<void(const CommonAPI::CallStatus&)> SetSpeedTypeAsyncCallback;
-    typedef std::function<void(const CommonAPI::CallStatus&, const Test_Code::SpeedType&)> GetSpeedTypeAsyncCallback;
-    typedef std::function<void(const CommonAPI::CallStatus&)> SetSpeedValueAsyncCallback;
-    typedef std::function<void(const CommonAPI::CallStatus&, const int32_t&)> GetSpeedValueAsyncCallback;
 
-    virtual SpeedTypeAttribute& getSpeedTypeAttribute() = 0;
     virtual SpeedValueAttribute& getSpeedValueAttribute() = 0;
+    virtual RpmValueAttribute& getRpmValueAttribute() = 0;
 
 
-    virtual void setSpeedType(const Test_Code::SpeedType &_type, CommonAPI::CallStatus &_internalCallStatus, const CommonAPI::CallInfo *_info = nullptr) = 0;
-    virtual std::future<CommonAPI::CallStatus> setSpeedTypeAsync(const Test_Code::SpeedType &_type, SetSpeedTypeAsyncCallback _callback = nullptr, const CommonAPI::CallInfo *_info = nullptr) = 0;
-    virtual void getSpeedType(CommonAPI::CallStatus &_internalCallStatus, Test_Code::SpeedType &_show, const CommonAPI::CallInfo *_info = nullptr) = 0;
-    virtual std::future<CommonAPI::CallStatus> getSpeedTypeAsync(GetSpeedTypeAsyncCallback _callback = nullptr, const CommonAPI::CallInfo *_info = nullptr) = 0;
-    virtual void setSpeedValue(const int32_t &_show, CommonAPI::CallStatus &_internalCallStatus, const CommonAPI::CallInfo *_info = nullptr) = 0;
-    virtual std::future<CommonAPI::CallStatus> setSpeedValueAsync(const int32_t &_show, SetSpeedValueAsyncCallback _callback = nullptr, const CommonAPI::CallInfo *_info = nullptr) = 0;
-    virtual void getSpeedValue(CommonAPI::CallStatus &_internalCallStatus, int32_t &_show, const CommonAPI::CallInfo *_info = nullptr) = 0;
-    virtual std::future<CommonAPI::CallStatus> getSpeedValueAsync(GetSpeedValueAsyncCallback _callback = nullptr, const CommonAPI::CallInfo *_info = nullptr) = 0;
 };
 
 } // namespace testcode

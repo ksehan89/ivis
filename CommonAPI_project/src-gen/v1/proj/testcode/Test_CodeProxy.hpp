@@ -39,99 +39,19 @@ public:
 
 
     /**
-     * Returns the wrapper class that provides access to the attribute speedType.
-     */
-    virtual SpeedTypeAttribute& getSpeedTypeAttribute() {
-        return delegate_->getSpeedTypeAttribute();
-    }
-    /**
      * Returns the wrapper class that provides access to the attribute speedValue.
      */
     virtual SpeedValueAttribute& getSpeedValueAttribute() {
         return delegate_->getSpeedValueAttribute();
     }
+    /**
+     * Returns the wrapper class that provides access to the attribute rpmValue.
+     */
+    virtual RpmValueAttribute& getRpmValueAttribute() {
+        return delegate_->getRpmValueAttribute();
+    }
 
 
-    /**
-     * Calls setSpeedType with synchronous semantics.
-     *
-    * All const parameters are input parameters to this method.
-     * The CallStatus will be filled when the method returns and indicate either
-     * "SUCCESS" or which type of error has occurred. In case of an error, ONLY the CallStatus
-     * will be set.
-     */
-    virtual void setSpeedType(const Test_Code::SpeedType &_type, CommonAPI::CallStatus &_internalCallStatus, const CommonAPI::CallInfo *_info = nullptr);
-    /**
-     * Calls setSpeedType with asynchronous semantics.
-     *
-     * The provided callback will be called when the reply to this call arrives or
-     * an error occurs during the call. The CallStatus will indicate either "SUCCESS"
-     * or which type of error has occurred. In case of any error, ONLY the CallStatus
-     * will have a defined value.
-     * The std::future returned by this method will be fulfilled at arrival of the reply.
-     * It will provide the same value for CallStatus as will be handed to the callback.
-     */
-    virtual std::future<CommonAPI::CallStatus> setSpeedTypeAsync(const Test_Code::SpeedType &_type, SetSpeedTypeAsyncCallback _callback = nullptr, const CommonAPI::CallInfo *_info = nullptr);
-    /**
-     * Calls getSpeedType with synchronous semantics.
-     *
-    * All non-const parameters will be filled with the returned values.
-     * The CallStatus will be filled when the method returns and indicate either
-     * "SUCCESS" or which type of error has occurred. In case of an error, ONLY the CallStatus
-     * will be set.
-     */
-    virtual void getSpeedType(CommonAPI::CallStatus &_internalCallStatus, Test_Code::SpeedType &_show, const CommonAPI::CallInfo *_info = nullptr);
-    /**
-     * Calls getSpeedType with asynchronous semantics.
-     *
-     * The provided callback will be called when the reply to this call arrives or
-     * an error occurs during the call. The CallStatus will indicate either "SUCCESS"
-     * or which type of error has occurred. In case of any error, ONLY the CallStatus
-     * will have a defined value.
-     * The std::future returned by this method will be fulfilled at arrival of the reply.
-     * It will provide the same value for CallStatus as will be handed to the callback.
-     */
-    virtual std::future<CommonAPI::CallStatus> getSpeedTypeAsync(GetSpeedTypeAsyncCallback _callback = nullptr, const CommonAPI::CallInfo *_info = nullptr);
-    /**
-     * Calls setSpeedValue with synchronous semantics.
-     *
-    * All const parameters are input parameters to this method.
-     * The CallStatus will be filled when the method returns and indicate either
-     * "SUCCESS" or which type of error has occurred. In case of an error, ONLY the CallStatus
-     * will be set.
-     */
-    virtual void setSpeedValue(const int32_t &_show, CommonAPI::CallStatus &_internalCallStatus, const CommonAPI::CallInfo *_info = nullptr);
-    /**
-     * Calls setSpeedValue with asynchronous semantics.
-     *
-     * The provided callback will be called when the reply to this call arrives or
-     * an error occurs during the call. The CallStatus will indicate either "SUCCESS"
-     * or which type of error has occurred. In case of any error, ONLY the CallStatus
-     * will have a defined value.
-     * The std::future returned by this method will be fulfilled at arrival of the reply.
-     * It will provide the same value for CallStatus as will be handed to the callback.
-     */
-    virtual std::future<CommonAPI::CallStatus> setSpeedValueAsync(const int32_t &_show, SetSpeedValueAsyncCallback _callback = nullptr, const CommonAPI::CallInfo *_info = nullptr);
-    /**
-     * Calls getSpeedValue with synchronous semantics.
-     *
-    * All non-const parameters will be filled with the returned values.
-     * The CallStatus will be filled when the method returns and indicate either
-     * "SUCCESS" or which type of error has occurred. In case of an error, ONLY the CallStatus
-     * will be set.
-     */
-    virtual void getSpeedValue(CommonAPI::CallStatus &_internalCallStatus, int32_t &_show, const CommonAPI::CallInfo *_info = nullptr);
-    /**
-     * Calls getSpeedValue with asynchronous semantics.
-     *
-     * The provided callback will be called when the reply to this call arrives or
-     * an error occurs during the call. The CallStatus will indicate either "SUCCESS"
-     * or which type of error has occurred. In case of any error, ONLY the CallStatus
-     * will have a defined value.
-     * The std::future returned by this method will be fulfilled at arrival of the reply.
-     * It will provide the same value for CallStatus as will be handed to the callback.
-     */
-    virtual std::future<CommonAPI::CallStatus> getSpeedValueAsync(GetSpeedValueAsyncCallback _callback = nullptr, const CommonAPI::CallInfo *_info = nullptr);
 
 
     /**
@@ -169,25 +89,6 @@ typedef Test_CodeProxy<> Test_CodeProxyDefault;
 
 namespace Test_CodeExtensions {
     template <template <typename > class _ExtensionType>
-    class SpeedTypeAttributeExtension {
-     public:
-        typedef _ExtensionType< Test_CodeProxyBase::SpeedTypeAttribute> extension_type;
-    
-        static_assert(std::is_base_of<typename CommonAPI::AttributeExtension< Test_CodeProxyBase::SpeedTypeAttribute>, extension_type>::value,
-                      "Not CommonAPI Attribute Extension!");
-    
-        SpeedTypeAttributeExtension(Test_CodeProxyBase& proxy): attributeExtension_(proxy.getSpeedTypeAttribute()) {
-        }
-    
-        inline extension_type& getSpeedTypeAttributeExtension() {
-            return attributeExtension_;
-        }
-    
-     private:
-        extension_type attributeExtension_;
-    };
-
-    template <template <typename > class _ExtensionType>
     class SpeedValueAttributeExtension {
      public:
         typedef _ExtensionType< Test_CodeProxyBase::SpeedValueAttribute> extension_type;
@@ -199,6 +100,25 @@ namespace Test_CodeExtensions {
         }
     
         inline extension_type& getSpeedValueAttributeExtension() {
+            return attributeExtension_;
+        }
+    
+     private:
+        extension_type attributeExtension_;
+    };
+
+    template <template <typename > class _ExtensionType>
+    class RpmValueAttributeExtension {
+     public:
+        typedef _ExtensionType< Test_CodeProxyBase::RpmValueAttribute> extension_type;
+    
+        static_assert(std::is_base_of<typename CommonAPI::AttributeExtension< Test_CodeProxyBase::RpmValueAttribute>, extension_type>::value,
+                      "Not CommonAPI Attribute Extension!");
+    
+        RpmValueAttributeExtension(Test_CodeProxyBase& proxy): attributeExtension_(proxy.getRpmValueAttribute()) {
+        }
+    
+        inline extension_type& getRpmValueAttributeExtension() {
             return attributeExtension_;
         }
     
@@ -221,52 +141,6 @@ template <typename ... _AttributeExtensions>
 Test_CodeProxy<_AttributeExtensions...>::~Test_CodeProxy() {
 }
 
-template <typename ... _AttributeExtensions>
-void Test_CodeProxy<_AttributeExtensions...>::setSpeedType(const Test_Code::SpeedType &_type, CommonAPI::CallStatus &_internalCallStatus, const CommonAPI::CallInfo *_info) {
-    if (!_type.validate()) {
-        _internalCallStatus = CommonAPI::CallStatus::INVALID_VALUE;
-        return;
-    }
-    delegate_->setSpeedType(_type, _internalCallStatus, _info);
-}
-
-template <typename ... _AttributeExtensions>
-std::future<CommonAPI::CallStatus> Test_CodeProxy<_AttributeExtensions...>::setSpeedTypeAsync(const Test_Code::SpeedType &_type, SetSpeedTypeAsyncCallback _callback, const CommonAPI::CallInfo *_info) {
-    if (!_type.validate()) {
-        _callback(CommonAPI::CallStatus::INVALID_VALUE);
-        std::promise<CommonAPI::CallStatus> promise;
-        promise.set_value(CommonAPI::CallStatus::INVALID_VALUE);
-        return promise.get_future();
-    }
-    return delegate_->setSpeedTypeAsync(_type, _callback, _info);
-}
-template <typename ... _AttributeExtensions>
-void Test_CodeProxy<_AttributeExtensions...>::getSpeedType(CommonAPI::CallStatus &_internalCallStatus, Test_Code::SpeedType &_show, const CommonAPI::CallInfo *_info) {
-    delegate_->getSpeedType(_internalCallStatus, _show, _info);
-}
-
-template <typename ... _AttributeExtensions>
-std::future<CommonAPI::CallStatus> Test_CodeProxy<_AttributeExtensions...>::getSpeedTypeAsync(GetSpeedTypeAsyncCallback _callback, const CommonAPI::CallInfo *_info) {
-    return delegate_->getSpeedTypeAsync(_callback, _info);
-}
-template <typename ... _AttributeExtensions>
-void Test_CodeProxy<_AttributeExtensions...>::setSpeedValue(const int32_t &_show, CommonAPI::CallStatus &_internalCallStatus, const CommonAPI::CallInfo *_info) {
-    delegate_->setSpeedValue(_show, _internalCallStatus, _info);
-}
-
-template <typename ... _AttributeExtensions>
-std::future<CommonAPI::CallStatus> Test_CodeProxy<_AttributeExtensions...>::setSpeedValueAsync(const int32_t &_show, SetSpeedValueAsyncCallback _callback, const CommonAPI::CallInfo *_info) {
-    return delegate_->setSpeedValueAsync(_show, _callback, _info);
-}
-template <typename ... _AttributeExtensions>
-void Test_CodeProxy<_AttributeExtensions...>::getSpeedValue(CommonAPI::CallStatus &_internalCallStatus, int32_t &_show, const CommonAPI::CallInfo *_info) {
-    delegate_->getSpeedValue(_internalCallStatus, _show, _info);
-}
-
-template <typename ... _AttributeExtensions>
-std::future<CommonAPI::CallStatus> Test_CodeProxy<_AttributeExtensions...>::getSpeedValueAsync(GetSpeedValueAsyncCallback _callback, const CommonAPI::CallInfo *_info) {
-    return delegate_->getSpeedValueAsync(_callback, _info);
-}
 
 template <typename ... _AttributeExtensions>
 const CommonAPI::Address &Test_CodeProxy<_AttributeExtensions...>::getAddress() const {
@@ -303,8 +177,8 @@ template<template<typename > class _AttributeExtension>
 struct DefaultAttributeProxyHelper< ::v1::proj::testcode::Test_CodeProxy,
     _AttributeExtension> {
     typedef typename ::v1::proj::testcode::Test_CodeProxy<
-            ::v1::proj::testcode::Test_CodeExtensions::SpeedTypeAttributeExtension<_AttributeExtension>, 
-            ::v1::proj::testcode::Test_CodeExtensions::SpeedValueAttributeExtension<_AttributeExtension>
+            ::v1::proj::testcode::Test_CodeExtensions::SpeedValueAttributeExtension<_AttributeExtension>, 
+            ::v1::proj::testcode::Test_CodeExtensions::RpmValueAttributeExtension<_AttributeExtension>
     > class_t;
 };
 }

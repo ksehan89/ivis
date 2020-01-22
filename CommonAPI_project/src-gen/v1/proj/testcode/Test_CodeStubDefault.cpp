@@ -29,59 +29,6 @@ Test_CodeStubRemoteEvent* Test_CodeStubDefault::initStubAdapter(const std::share
     return &remoteEventHandler_;
 }
 
- const ::v1::proj::testcode::Test_Code::SpeedType& Test_CodeStubDefault::getSpeedTypeAttribute() {
-     return speedTypeAttributeValue_;
- }
-
- const ::v1::proj::testcode::Test_Code::SpeedType& Test_CodeStubDefault::getSpeedTypeAttribute(const std::shared_ptr<CommonAPI::ClientId> _client) {
-     (void)_client;
-     return getSpeedTypeAttribute();
- }
-
- void Test_CodeStubDefault::setSpeedTypeAttribute(::v1::proj::testcode::Test_Code::SpeedType _value) {
-     std::shared_ptr<Test_CodeStubAdapter> stubAdapter = CommonAPI::Stub<Test_CodeStubAdapter,
-     Test_CodeStubRemoteEvent>::stubAdapter_.lock();
-     if(stubAdapter) {
-         stubAdapter->lockSpeedTypeAttribute(true);
-         const bool valueChanged = (speedTypeAttributeValue_ != _value);
-         if (valueChanged) {
-             speedTypeAttributeValue_ = std::move(_value);
-             fireSpeedTypeAttributeChanged(speedTypeAttributeValue_);
-         }
-         stubAdapter->lockSpeedTypeAttribute(false);
-     } else {
-         const bool valueChanged = trySetSpeedTypeAttribute(std::move(_value));
-         if (valueChanged) {
-             fireSpeedTypeAttributeChanged(speedTypeAttributeValue_);
-         }
-     }
-}
-
- bool Test_CodeStubDefault::trySetSpeedTypeAttribute(::v1::proj::testcode::Test_Code::SpeedType _value) {
-     if (!validateSpeedTypeAttributeRequestedValue(_value))
-         return false;
-
-     bool valueChanged;
-     std::shared_ptr<Test_CodeStubAdapter> stubAdapter = CommonAPI::Stub<Test_CodeStubAdapter, Test_CodeStubRemoteEvent>::stubAdapter_.lock();
-     if(stubAdapter) {
-         stubAdapter->lockSpeedTypeAttribute(true);
-         valueChanged = (speedTypeAttributeValue_ != _value);
-         speedTypeAttributeValue_ = std::move(_value);
-         stubAdapter->lockSpeedTypeAttribute(false);
-     } else {
-         valueChanged = (speedTypeAttributeValue_ != _value);
-         speedTypeAttributeValue_ = std::move(_value);
-     }
-
-     return valueChanged;
- }
-
- bool Test_CodeStubDefault::validateSpeedTypeAttributeRequestedValue(const ::v1::proj::testcode::Test_Code::SpeedType &_value) {
-     (void)_value;
-     return _value.validate();
- }
-
-
  const int32_t& Test_CodeStubDefault::getSpeedValueAttribute() {
      return speedValueAttributeValue_;
  }
@@ -134,34 +81,106 @@ Test_CodeStubRemoteEvent* Test_CodeStubDefault::initStubAdapter(const std::share
      return true;
  }
 
+ void Test_CodeStubDefault::setSpeedValueAttribute(const std::shared_ptr<CommonAPI::ClientId> _client, int32_t _value) {
+     (void)_client;
+     setSpeedValueAttribute(_value);
+ }
 
+ void Test_CodeStubDefault::onRemoteSpeedValueAttributeChanged() {
+     // No operation in default
+ }
 
-void Test_CodeStubDefault::setSpeedType(const std::shared_ptr<CommonAPI::ClientId> _client, Test_Code::SpeedType _type, setSpeedTypeReply_t _reply) {
-    (void)_client;
-    (void)_type;
-    _reply();
+ void Test_CodeStubDefault::RemoteEventHandler::onRemoteSpeedValueAttributeChanged() {
+     assert(defaultStub_ !=NULL);
+     defaultStub_->onRemoteSpeedValueAttributeChanged();
+ }
+
+ bool Test_CodeStubDefault::RemoteEventHandler::onRemoteSetSpeedValueAttribute(int32_t _value) {
+     assert(defaultStub_ !=NULL);
+     return defaultStub_->trySetSpeedValueAttribute(std::move(_value));
+ }
+
+ bool Test_CodeStubDefault::RemoteEventHandler::onRemoteSetSpeedValueAttribute(const std::shared_ptr<CommonAPI::ClientId> _client, int32_t _value) {
+     (void)_client;
+     return onRemoteSetSpeedValueAttribute(_value);
+ }
+
+ const int32_t& Test_CodeStubDefault::getRpmValueAttribute() {
+     return rpmValueAttributeValue_;
+ }
+
+ const int32_t& Test_CodeStubDefault::getRpmValueAttribute(const std::shared_ptr<CommonAPI::ClientId> _client) {
+     (void)_client;
+     return getRpmValueAttribute();
+ }
+
+ void Test_CodeStubDefault::setRpmValueAttribute(int32_t _value) {
+     std::shared_ptr<Test_CodeStubAdapter> stubAdapter = CommonAPI::Stub<Test_CodeStubAdapter,
+     Test_CodeStubRemoteEvent>::stubAdapter_.lock();
+     if(stubAdapter) {
+         stubAdapter->lockRpmValueAttribute(true);
+         const bool valueChanged = (rpmValueAttributeValue_ != _value);
+         if (valueChanged) {
+             rpmValueAttributeValue_ = std::move(_value);
+             fireRpmValueAttributeChanged(rpmValueAttributeValue_);
+         }
+         stubAdapter->lockRpmValueAttribute(false);
+     } else {
+         const bool valueChanged = trySetRpmValueAttribute(std::move(_value));
+         if (valueChanged) {
+             fireRpmValueAttributeChanged(rpmValueAttributeValue_);
+         }
+     }
 }
 
-void Test_CodeStubDefault::getSpeedType(const std::shared_ptr<CommonAPI::ClientId> _client, getSpeedTypeReply_t _reply) {
-    (void)_client;
-    Test_Code::SpeedType show = Test_Code::SpeedType::SPEED_KIL;
-    if (!show.validate()) {
-        return;
-    }
-    _reply(show);
-}
+ bool Test_CodeStubDefault::trySetRpmValueAttribute(int32_t _value) {
+     if (!validateRpmValueAttributeRequestedValue(_value))
+         return false;
 
-void Test_CodeStubDefault::setSpeedValue(const std::shared_ptr<CommonAPI::ClientId> _client, int32_t _show, setSpeedValueReply_t _reply) {
-    (void)_client;
-    (void)_show;
-    _reply();
-}
+     bool valueChanged;
+     std::shared_ptr<Test_CodeStubAdapter> stubAdapter = CommonAPI::Stub<Test_CodeStubAdapter, Test_CodeStubRemoteEvent>::stubAdapter_.lock();
+     if(stubAdapter) {
+         stubAdapter->lockRpmValueAttribute(true);
+         valueChanged = (rpmValueAttributeValue_ != _value);
+         rpmValueAttributeValue_ = std::move(_value);
+         stubAdapter->lockRpmValueAttribute(false);
+     } else {
+         valueChanged = (rpmValueAttributeValue_ != _value);
+         rpmValueAttributeValue_ = std::move(_value);
+     }
 
-void Test_CodeStubDefault::getSpeedValue(const std::shared_ptr<CommonAPI::ClientId> _client, getSpeedValueReply_t _reply) {
-    (void)_client;
-    int32_t show = 0;
-    _reply(show);
-}
+     return valueChanged;
+ }
+
+ bool Test_CodeStubDefault::validateRpmValueAttributeRequestedValue(const int32_t &_value) {
+     (void)_value;
+     return true;
+ }
+
+ void Test_CodeStubDefault::setRpmValueAttribute(const std::shared_ptr<CommonAPI::ClientId> _client, int32_t _value) {
+     (void)_client;
+     setRpmValueAttribute(_value);
+ }
+
+ void Test_CodeStubDefault::onRemoteRpmValueAttributeChanged() {
+     // No operation in default
+ }
+
+ void Test_CodeStubDefault::RemoteEventHandler::onRemoteRpmValueAttributeChanged() {
+     assert(defaultStub_ !=NULL);
+     defaultStub_->onRemoteRpmValueAttributeChanged();
+ }
+
+ bool Test_CodeStubDefault::RemoteEventHandler::onRemoteSetRpmValueAttribute(int32_t _value) {
+     assert(defaultStub_ !=NULL);
+     return defaultStub_->trySetRpmValueAttribute(std::move(_value));
+ }
+
+ bool Test_CodeStubDefault::RemoteEventHandler::onRemoteSetRpmValueAttribute(const std::shared_ptr<CommonAPI::ClientId> _client, int32_t _value) {
+     (void)_client;
+     return onRemoteSetRpmValueAttribute(_value);
+ }
+
 
 
 

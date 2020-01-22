@@ -17,10 +17,7 @@
 #define COMMONAPI_INTERNAL_COMPILATION
 #endif
 
-#include <CommonAPI/InputStream.hpp>
-#include <CommonAPI/OutputStream.hpp>
 #include <CommonAPI/Types.hpp>
-#include <cstdint>
 
 #undef COMMONAPI_INTERNAL_COMPILATION
 
@@ -34,44 +31,6 @@ public:
 
     static inline const char* getInterface();
     static inline CommonAPI::Version getInterfaceVersion();
-    
-    struct SpeedType : CommonAPI::Enumeration< int32_t> {
-        enum Literal : int32_t {
-            SPEED_KIL = 0,
-            SPEED_MILE = 1,
-            MAX = 2
-        };
-    
-        SpeedType()
-            : CommonAPI::Enumeration< int32_t>(static_cast< int32_t>(Literal::SPEED_KIL)) {}
-        SpeedType(Literal _literal)
-            : CommonAPI::Enumeration< int32_t>(static_cast< int32_t>(_literal)) {}
-    
-        inline bool validate() const {
-            switch (value_) {
-                case static_cast< int32_t>(Literal::SPEED_KIL):
-                case static_cast< int32_t>(Literal::SPEED_MILE):
-                case static_cast< int32_t>(Literal::MAX):
-                return true;
-            default:
-                return false;
-            }
-        }
-    
-        inline bool operator==(const SpeedType &_other) const { return (value_ == _other.value_); }
-        inline bool operator!=(const SpeedType &_other) const { return (value_ != _other.value_); }
-        inline bool operator<=(const SpeedType &_other) const { return (value_ <= _other.value_); }
-        inline bool operator>=(const SpeedType &_other) const { return (value_ >= _other.value_); }
-        inline bool operator<(const SpeedType &_other) const { return (value_ < _other.value_); }
-        inline bool operator>(const SpeedType &_other) const { return (value_ > _other.value_); }
-    
-        inline bool operator==(const Literal &_value) const { return (value_ == static_cast< int32_t>(_value)); }
-        inline bool operator!=(const Literal &_value) const { return (value_ != static_cast< int32_t>(_value)); }
-        inline bool operator<=(const Literal &_value) const { return (value_ <= static_cast< int32_t>(_value)); }
-        inline bool operator>=(const Literal &_value) const { return (value_ >= static_cast< int32_t>(_value)); }
-        inline bool operator<(const Literal &_value) const { return (value_ < static_cast< int32_t>(_value)); }
-        inline bool operator>(const Literal &_value) const { return (value_ > static_cast< int32_t>(_value)); }
-    };
 };
 
 const char* Test_Code::getInterface() {

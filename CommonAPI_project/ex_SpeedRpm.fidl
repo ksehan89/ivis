@@ -3,37 +3,6 @@ package proj.testcode
 interface Test_Code {
 	version { major 1 minor 0}
 
-	enumeration SpeedType {
-		SPEED_KIL
-		SPEED_MILE
-		MAX
-	}
-
-	attribute SpeedType speedType readonly
-
-	method setSpeedType {
-		in {
-			SpeedType type
-		}
-	}
-
-	method getSpeedType {
-		out {
-			SpeedType show
-		}
-	}
-
-	attribute Int32 speedValue readonly
-
-	method setSpeedValue {
-		in {
-			Int32 show
-		}
-	}
-
-	method getSpeedValue {
-		out {
-			Int32 show
-		}
-	}
+	attribute Int32 speedValue
+	attribute Int32 rpmValue
 }

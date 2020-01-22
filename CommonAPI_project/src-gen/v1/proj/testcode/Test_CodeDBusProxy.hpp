@@ -53,34 +53,18 @@ public:
 
     virtual ~Test_CodeDBusProxy() { }
 
-    virtual SpeedTypeAttribute& getSpeedTypeAttribute();
     virtual SpeedValueAttribute& getSpeedValueAttribute();
+    virtual RpmValueAttribute& getRpmValueAttribute();
 
 
-    virtual void setSpeedType(const Test_Code::SpeedType &_type, CommonAPI::CallStatus &_internalCallStatus, const CommonAPI::CallInfo *_info);
-    virtual std::future<CommonAPI::CallStatus> setSpeedTypeAsync(const Test_Code::SpeedType &_type, SetSpeedTypeAsyncCallback _callback, const CommonAPI::CallInfo *_info);
-    virtual void getSpeedType(CommonAPI::CallStatus &_internalCallStatus, Test_Code::SpeedType &_show, const CommonAPI::CallInfo *_info);
-    virtual std::future<CommonAPI::CallStatus> getSpeedTypeAsync(GetSpeedTypeAsyncCallback _callback, const CommonAPI::CallInfo *_info);
-    virtual void setSpeedValue(const int32_t &_show, CommonAPI::CallStatus &_internalCallStatus, const CommonAPI::CallInfo *_info);
-    virtual std::future<CommonAPI::CallStatus> setSpeedValueAsync(const int32_t &_show, SetSpeedValueAsyncCallback _callback, const CommonAPI::CallInfo *_info);
-    virtual void getSpeedValue(CommonAPI::CallStatus &_internalCallStatus, int32_t &_show, const CommonAPI::CallInfo *_info);
-    virtual std::future<CommonAPI::CallStatus> getSpeedValueAsync(GetSpeedValueAsyncCallback _callback, const CommonAPI::CallInfo *_info);
 
 
     virtual void getOwnVersion(uint16_t& ownVersionMajor, uint16_t& ownVersionMinor) const;
 
 private:
 
-    class DBusspeedType_Attribute : public CommonAPI::DBus::DBusObservableAttribute<CommonAPI::DBus::DBusReadonlyAttribute<SpeedTypeAttribute>> {
-    public:
-    template <typename... _A>
-        DBusspeedType_Attribute(DBusProxy &_proxy,
-            _A ... arguments)
-            : CommonAPI::DBus::DBusObservableAttribute<CommonAPI::DBus::DBusReadonlyAttribute<SpeedTypeAttribute>>(
-                _proxy, arguments...) {}
-    };
-    DBusspeedType_Attribute speedType_;
-    CommonAPI::DBus::DBusObservableAttribute<CommonAPI::DBus::DBusReadonlyAttribute<SpeedValueAttribute, CommonAPI::DBus::IntegerDeployment>> speedValue_;
+    CommonAPI::DBus::DBusObservableAttribute<CommonAPI::DBus::DBusAttribute<SpeedValueAttribute, CommonAPI::DBus::IntegerDeployment>> speedValue_;
+    CommonAPI::DBus::DBusObservableAttribute<CommonAPI::DBus::DBusAttribute<RpmValueAttribute, CommonAPI::DBus::IntegerDeployment>> rpmValue_;
 
 
 };
