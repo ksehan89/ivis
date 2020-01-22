@@ -21,8 +21,7 @@ int main(int argc, char* argv[])
     /////////////////////////////////////////////
     //HelloStubMain* stubInst = new HelloStubMain();
 
-    std::shared_ptr<HelloStubMain> myService = std::make_shared<HelloStubMain>();
-    myService->Init();
+    HelloStubMain::getInstance()->Init();
     /////////////////////////////////////////////
 
     return app.exec();
