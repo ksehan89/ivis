@@ -8,6 +8,7 @@
 //#include <dltregistration.h>
 //#include <dltregistration_global.h>
 //#include <dltregistration_p.h>
+#include <v1/proj/testcode/CommonTypes.hpp>
 #include <v1/proj/testcode/Test_CodeStub.hpp>
 
 HelloStubMain::HelloStubMain()
@@ -35,6 +36,14 @@ int injection_callback(uint32_t service_id, void* data, uint32_t length)
         DLT_LOG(myContext2, DLT_LOG_INFO, DLT_INT(5), DLT_STRING("set speedValeu : "), DLT_INT(speedValue));
     }
     DLT_LOG(myContext2, DLT_LOG_INFO, DLT_INT(5), DLT_STRING("speedValeu : "), DLT_INT(speedValue));
+    return 0;
+}
+
+int num_ex(const int32_t& _input_num, CommonAPI::CallStatus& _internalCallStatus, int32_t& _output_num, const CommonAPI::CallInfo* _info = nullptr)
+{
+    std::cout << "input_num : " << _input_num << std::endl;
+    _output_num = _input_num + 1;
+    std::cout << "output_num :" << _output_num << std::endl;
     return 0;
 }
 
@@ -82,6 +91,11 @@ void HelloStubMain::Init()
     // dlt injection
     //DLT_INJECTION_CALLBACK(CONTEXT, SERVICEID, CALLBACK);
     DLT_REGISTER_INJECTION_CALLBACK(myContext1, 0x1000, &injection_callback);
+
+    //////////////////
+    //num_ex();
+    DLT_REGISTER_INJECTION_CALLBACK(myContext1, 0x1000, &num_ex);
+    //////////////////
 
     // unregister your contexts
     //    DLT_UNREGISTER_CONTEXT(myContext1);

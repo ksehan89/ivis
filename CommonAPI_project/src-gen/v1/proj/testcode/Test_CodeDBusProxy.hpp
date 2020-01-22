@@ -55,8 +55,11 @@ public:
 
     virtual SpeedValueAttribute& getSpeedValueAttribute();
     virtual RpmValueAttribute& getRpmValueAttribute();
+    virtual A2Attribute& getA2Attribute();
 
 
+    virtual void num_ex(const int32_t &_input_num, CommonAPI::CallStatus &_internalCallStatus, int32_t &_output_num, const CommonAPI::CallInfo *_info);
+    virtual std::future<CommonAPI::CallStatus> num_exAsync(const int32_t &_input_num, Num_exAsyncCallback _callback, const CommonAPI::CallInfo *_info);
 
 
     virtual void getOwnVersion(uint16_t& ownVersionMajor, uint16_t& ownVersionMinor) const;
@@ -65,6 +68,7 @@ private:
 
     CommonAPI::DBus::DBusObservableAttribute<CommonAPI::DBus::DBusAttribute<SpeedValueAttribute, CommonAPI::DBus::IntegerDeployment>> speedValue_;
     CommonAPI::DBus::DBusObservableAttribute<CommonAPI::DBus::DBusAttribute<RpmValueAttribute, CommonAPI::DBus::IntegerDeployment>> rpmValue_;
+    CommonAPI::DBus::DBusObservableAttribute<CommonAPI::DBus::DBusAttribute<A2Attribute, ::v1::proj::testcode::CommonTypes_::a2StructDeployment_t>> a2_;
 
 
 };

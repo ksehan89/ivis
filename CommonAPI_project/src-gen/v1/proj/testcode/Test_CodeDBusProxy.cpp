@@ -34,7 +34,8 @@ Test_CodeDBusProxy::Test_CodeDBusProxy(
     const std::shared_ptr<CommonAPI::DBus::DBusProxyConnection> &_connection)
     :   CommonAPI::DBus::DBusProxy(_address, _connection)
 ,        speedValue_(*this, "onSpeedValueAttributeChanged", "setSpeedValueAttribute", "i", "getSpeedValueAttribute", static_cast< CommonAPI::DBus::IntegerDeployment* >(nullptr)),
-        rpmValue_(*this, "onRpmValueAttributeChanged", "setRpmValueAttribute", "i", "getRpmValueAttribute", static_cast< CommonAPI::DBus::IntegerDeployment* >(nullptr))
+        rpmValue_(*this, "onRpmValueAttributeChanged", "setRpmValueAttribute", "i", "getRpmValueAttribute", static_cast< CommonAPI::DBus::IntegerDeployment* >(nullptr)),
+        a2_(*this, "onA2AttributeChanged", "setA2Attribute", "(ibd)", "getA2Attribute", static_cast< ::v1::proj::testcode::CommonTypes_::a2StructDeployment_t* >(nullptr))
 {
 }
 
@@ -44,8 +45,53 @@ Test_CodeDBusProxy::Test_CodeDBusProxy(
       Test_CodeDBusProxy::RpmValueAttribute& Test_CodeDBusProxy::getRpmValueAttribute() {
           return rpmValue_;
       }
+      Test_CodeDBusProxy::A2Attribute& Test_CodeDBusProxy::getA2Attribute() {
+          return a2_;
+      }
 
 
+    void Test_CodeDBusProxy::num_ex(const int32_t &_input_num, CommonAPI::CallStatus &_internalCallStatus, int32_t &_output_num, const CommonAPI::CallInfo *_info) {
+        CommonAPI::Deployable< int32_t, CommonAPI::DBus::IntegerDeployment> deploy_input_num(_input_num, static_cast< CommonAPI::DBus::IntegerDeployment* >(nullptr));
+        CommonAPI::Deployable< int32_t, CommonAPI::DBus::IntegerDeployment> deploy_output_num(static_cast< CommonAPI::DBus::IntegerDeployment* >(nullptr));
+        CommonAPI::DBus::DBusProxyHelper<
+            CommonAPI::DBus::DBusSerializableArguments<
+            CommonAPI::Deployable< int32_t, CommonAPI::DBus::IntegerDeployment >
+            >,
+            CommonAPI::DBus::DBusSerializableArguments<
+            CommonAPI::Deployable< int32_t,CommonAPI::DBus::IntegerDeployment>
+            >
+            >::callMethodWithReply(
+        *this,
+        "num_ex",
+        "i",
+(_info ? _info : &CommonAPI::DBus::defaultCallInfo),
+deploy_input_num,
+_internalCallStatus,
+deploy_output_num);
+_output_num = deploy_output_num.getValue();
+}
+    std::future<CommonAPI::CallStatus> Test_CodeDBusProxy::num_exAsync(const int32_t &_input_num, Num_exAsyncCallback _callback, const CommonAPI::CallInfo *_info) {
+        CommonAPI::Deployable< int32_t, CommonAPI::DBus::IntegerDeployment> deploy_input_num(_input_num, static_cast< CommonAPI::DBus::IntegerDeployment* >(nullptr));
+        CommonAPI::Deployable< int32_t, CommonAPI::DBus::IntegerDeployment> deploy_output_num(static_cast< CommonAPI::DBus::IntegerDeployment* >(nullptr));
+        return CommonAPI::DBus::DBusProxyHelper<
+            CommonAPI::DBus::DBusSerializableArguments<
+            CommonAPI::Deployable< int32_t, CommonAPI::DBus::IntegerDeployment >
+            >,
+            CommonAPI::DBus::DBusSerializableArguments<
+            CommonAPI::Deployable< int32_t,CommonAPI::DBus::IntegerDeployment>
+            >
+            >::callMethodAsync(
+        *this,
+        "num_ex",
+        "i",
+        (_info ? _info : &CommonAPI::DBus::defaultCallInfo),
+        deploy_input_num,
+        [_callback] (CommonAPI::CallStatus _internalCallStatus, CommonAPI::Deployable< int32_t, CommonAPI::DBus::IntegerDeployment > _output_num) {
+            if (_callback)
+                _callback(_internalCallStatus, _output_num.getValue());
+        },
+        std::make_tuple(deploy_output_num));
+    }
 
 
 void Test_CodeDBusProxy::getOwnVersion(uint16_t& ownVersionMajor, uint16_t& ownVersionMinor) const {

@@ -12,6 +12,7 @@
 
 #include <v1/proj/testcode/Test_CodeStub.hpp>
 #include "v1/proj/testcode/Test_CodeDBusDeployment.hpp"
+#include <v1/proj/testcode/CommonTypesDBusDeployment.hpp>
 
 #if !defined (COMMONAPI_INTERNAL_COMPILATION)
 #define COMMONAPI_INTERNAL_COMPILATION
@@ -54,6 +55,8 @@ public:
 
     void fireRpmValueAttributeChanged(const int32_t& value);
 
+    void fireA2AttributeChanged(const ::v1::proj::testcode::CommonTypes::a2Struct& value);
+
     void deactivateManagedInstances() {
     }
 
@@ -84,6 +87,27 @@ public:
             CommonAPI::DBus::IntegerDeployment
             > setRpmValueAttributeStubDispatcher;
 
+    static CommonAPI::DBus::DBusGetAttributeStubDispatcher<
+            ::v1::proj::testcode::Test_CodeStub,
+            ::v1::proj::testcode::CommonTypes::a2Struct,
+            ::v1::proj::testcode::CommonTypes_::a2StructDeployment_t
+            > getA2AttributeStubDispatcher;
+    static CommonAPI::DBus::DBusSetObservableAttributeStubDispatcher<
+            ::v1::proj::testcode::Test_CodeStub,
+            ::v1::proj::testcode::CommonTypes::a2Struct,
+            ::v1::proj::testcode::CommonTypes_::a2StructDeployment_t
+            > setA2AttributeStubDispatcher;
+
+    
+    static CommonAPI::DBus::DBusMethodWithReplyStubDispatcher<
+        ::v1::proj::testcode::Test_CodeStub,
+        std::tuple< int32_t>,
+        std::tuple< int32_t>,
+        std::tuple< CommonAPI::DBus::IntegerDeployment>,
+        std::tuple< CommonAPI::DBus::IntegerDeployment>
+    
+        > num_exStubDispatcher;
+
     Test_CodeDBusStubAdapterInternal(
         const CommonAPI::DBus::DBusAddress &_address,
         const std::shared_ptr<CommonAPI::DBus::DBusProxyConnection> &_connection,
@@ -94,6 +118,9 @@ public:
         Test_CodeDBusStubAdapterHelper::addStubDispatcher({ "setSpeedValueAttribute", "i" }, &setSpeedValueAttributeStubDispatcher);
         Test_CodeDBusStubAdapterHelper::addStubDispatcher({ "getRpmValueAttribute", "" }, &getRpmValueAttributeStubDispatcher);
         Test_CodeDBusStubAdapterHelper::addStubDispatcher({ "setRpmValueAttribute", "i" }, &setRpmValueAttributeStubDispatcher);
+        Test_CodeDBusStubAdapterHelper::addStubDispatcher({ "getA2Attribute", "" }, &getA2AttributeStubDispatcher);
+        Test_CodeDBusStubAdapterHelper::addStubDispatcher({ "setA2Attribute", "(ibd)" }, &setA2AttributeStubDispatcher);
+        Test_CodeDBusStubAdapterHelper::addStubDispatcher({ "num_ex", "i" }, &num_exStubDispatcher);
         Test_CodeDBusStubAdapterHelper::addStubDispatcher({ "getInterfaceVersion", "" }, &getTest_CodeInterfaceVersionStubDispatcher);
     }
 
@@ -123,6 +150,20 @@ protected:
             "<signal name=\"onRpmValueAttributeChanged\">\n"
             "<arg name=\"changedValue\" type=\"i\" />\n"
             "</signal>\n"
+            "<method name=\"getA2Attribute\">\n"
+            "<arg name=\"value\" type=\"(ibd)\" direction=\"out\" />"
+            "</method>\n"
+            "<method name=\"setA2Attribute\">\n"
+            "<arg name=\"requestedValue\" type=\"(ibd)\" direction=\"in\" />\n"
+            "<arg name=\"setValue\" type=\"(ibd)\" direction=\"out\" />\n"
+            "</method>\n"
+            "<signal name=\"onA2AttributeChanged\">\n"
+            "<arg name=\"changedValue\" type=\"(ibd)\" />\n"
+            "</signal>\n"
+            "<method name=\"num_ex\">\n"
+            "<arg name=\"_input_num\" type=\"i\" direction=\"in\" />\n"
+            "<arg name=\"_output_num\" type=\"i\" direction=\"out\" />\n"
+            "</method>\n"
             ;
         return introspectionData.c_str();
     }
@@ -186,6 +227,44 @@ CommonAPI::DBus::DBusSetObservableAttributeStubDispatcher<
                 );
 
 template <typename _Stub, typename... _Stubs>
+CommonAPI::DBus::DBusGetAttributeStubDispatcher<
+        ::v1::proj::testcode::Test_CodeStub,
+        ::v1::proj::testcode::CommonTypes::a2Struct,
+        ::v1::proj::testcode::CommonTypes_::a2StructDeployment_t
+        > Test_CodeDBusStubAdapterInternal<_Stub, _Stubs...>::getA2AttributeStubDispatcher(
+            &::v1::proj::testcode::Test_CodeStub::lockA2Attribute,
+            &::v1::proj::testcode::Test_CodeStub::getA2Attribute
+            , "(ibd)"
+            );
+template <typename _Stub, typename... _Stubs>
+CommonAPI::DBus::DBusSetObservableAttributeStubDispatcher<
+        ::v1::proj::testcode::Test_CodeStub,
+        ::v1::proj::testcode::CommonTypes::a2Struct,
+        ::v1::proj::testcode::CommonTypes_::a2StructDeployment_t
+        > Test_CodeDBusStubAdapterInternal<_Stub, _Stubs...>::setA2AttributeStubDispatcher(
+                &::v1::proj::testcode::Test_CodeStub::lockA2Attribute,
+                &::v1::proj::testcode::Test_CodeStub::getA2Attribute,
+                &Test_CodeStubRemoteEvent::onRemoteSetA2Attribute,
+                &Test_CodeStubRemoteEvent::onRemoteA2AttributeChanged
+                ,&Test_CodeStubAdapter::fireA2AttributeChanged
+                ,"(ibd)"
+                );
+
+
+template <typename _Stub, typename... _Stubs>
+CommonAPI::DBus::DBusMethodWithReplyStubDispatcher<
+    ::v1::proj::testcode::Test_CodeStub,
+    std::tuple< int32_t>,
+    std::tuple< int32_t>,
+    std::tuple< CommonAPI::DBus::IntegerDeployment>,
+    std::tuple< CommonAPI::DBus::IntegerDeployment>
+
+    > Test_CodeDBusStubAdapterInternal<_Stub, _Stubs...>::num_exStubDispatcher(
+    &Test_CodeStub::num_ex, "i",
+    std::make_tuple(static_cast< CommonAPI::DBus::IntegerDeployment* >(nullptr)),
+    std::make_tuple(static_cast< CommonAPI::DBus::IntegerDeployment* >(nullptr)));
+
+template <typename _Stub, typename... _Stubs>
 void Test_CodeDBusStubAdapterInternal<_Stub, _Stubs...>::fireSpeedValueAttributeChanged(const int32_t& value) {
     CommonAPI::Deployable< int32_t, CommonAPI::DBus::IntegerDeployment> deployedValue(value, static_cast< CommonAPI::DBus::IntegerDeployment* >(nullptr));
     CommonAPI::DBus::DBusStubSignalHelper<CommonAPI::DBus::DBusSerializableArguments<
@@ -216,6 +295,24 @@ void Test_CodeDBusStubAdapterInternal<_Stub, _Stubs...>::fireRpmValueAttributeCh
             *this,
             "onRpmValueAttributeChanged",
             "i",
+            deployedValue
+    
+    );
+}
+
+template <typename _Stub, typename... _Stubs>
+void Test_CodeDBusStubAdapterInternal<_Stub, _Stubs...>::fireA2AttributeChanged(const ::v1::proj::testcode::CommonTypes::a2Struct& value) {
+    CommonAPI::Deployable< ::v1::proj::testcode::CommonTypes::a2Struct, ::v1::proj::testcode::CommonTypes_::a2StructDeployment_t> deployedValue(value, static_cast< ::v1::proj::testcode::CommonTypes_::a2StructDeployment_t* >(nullptr));
+    CommonAPI::DBus::DBusStubSignalHelper<CommonAPI::DBus::DBusSerializableArguments<
+    CommonAPI::Deployable<
+        ::v1::proj::testcode::CommonTypes::a2Struct,
+        ::v1::proj::testcode::CommonTypes_::a2StructDeployment_t
+    >
+    >>
+        ::sendSignal(
+            *this,
+            "onA2AttributeChanged",
+            "(ibd)",
             deployedValue
     
     );

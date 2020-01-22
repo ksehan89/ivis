@@ -15,6 +15,7 @@
 
 
 
+#include <v1/proj/testcode/CommonTypes.hpp>
 
 #include <v1/proj/testcode/Test_Code.hpp>
 
@@ -22,6 +23,12 @@
 #define COMMONAPI_INTERNAL_COMPILATION
 #endif
 
+#include <CommonAPI/Deployment.hpp>
+#include <CommonAPI/InputStream.hpp>
+#include <CommonAPI/OutputStream.hpp>
+#include <CommonAPI/Struct.hpp>
+#include <cstdint>
+#include <vector>
 
 #include <mutex>
 
@@ -47,6 +54,8 @@ class Test_CodeStubAdapter
     virtual void fireSpeedValueAttributeChanged(const int32_t& speedValue) = 0;
     ///Notifies all remote listeners about a change of value of the attribute rpmValue.
     virtual void fireRpmValueAttributeChanged(const int32_t& rpmValue) = 0;
+    ///Notifies all remote listeners about a change of value of the attribute a2.
+    virtual void fireA2AttributeChanged(const ::v1::proj::testcode::CommonTypes::a2Struct& a2) = 0;
 
 
 
@@ -66,6 +75,13 @@ class Test_CodeStubAdapter
             rpmValueMutex_.unlock();
         }
     }
+    void lockA2Attribute(bool _lockAccess) {
+        if (_lockAccess) {
+            a2Mutex_.lock();
+        } else {
+            a2Mutex_.unlock();
+        }
+    }
 
 protected:
     /**
@@ -75,6 +91,7 @@ protected:
 
     std::recursive_mutex speedValueMutex_;
     std::recursive_mutex rpmValueMutex_;
+    std::recursive_mutex a2Mutex_;
 };
 
 /**
@@ -102,6 +119,10 @@ public:
     virtual bool onRemoteSetRpmValueAttribute(const std::shared_ptr<CommonAPI::ClientId> _client, int32_t _value) = 0;
     /// Action callback for remote set requests on the attribute rpmValue
     virtual void onRemoteRpmValueAttributeChanged() = 0;
+    /// Verification callback for remote set requests on the attribute a2
+    virtual bool onRemoteSetA2Attribute(const std::shared_ptr<CommonAPI::ClientId> _client, ::v1::proj::testcode::CommonTypes::a2Struct _value) = 0;
+    /// Action callback for remote set requests on the attribute a2
+    virtual void onRemoteA2AttributeChanged() = 0;
 };
 
 /**
@@ -114,6 +135,7 @@ class Test_CodeStub
     : public virtual CommonAPI::Stub<Test_CodeStubAdapter, Test_CodeStubRemoteEvent>
 {
 public:
+    typedef std::function<void (int32_t _output_num)>num_exReply_t;
 
     virtual ~Test_CodeStub() {}
     virtual const CommonAPI::Version& getInterfaceVersion(std::shared_ptr<CommonAPI::ClientId> clientId) = 0;
@@ -145,7 +167,22 @@ public:
         if (stubAdapter)
             stubAdapter->lockRpmValueAttribute(_lockAccess);
     }
+    /// Provides getter access to the attribute a2
+    virtual const ::v1::proj::testcode::CommonTypes::a2Struct &getA2Attribute(const std::shared_ptr<CommonAPI::ClientId> _client) = 0;
+    /// sets attribute with the given value and propagates it to the adapter
+    virtual void fireA2AttributeChanged(::v1::proj::testcode::CommonTypes::a2Struct _value) {
+    auto stubAdapter = CommonAPI::Stub<Test_CodeStubAdapter, Test_CodeStubRemoteEvent>::stubAdapter_.lock();
+    if (stubAdapter)
+        stubAdapter->fireA2AttributeChanged(_value);
+    }
+    void lockA2Attribute(bool _lockAccess) {
+        auto stubAdapter = CommonAPI::Stub<Test_CodeStubAdapter, Test_CodeStubRemoteEvent>::stubAdapter_.lock();
+        if (stubAdapter)
+            stubAdapter->lockA2Attribute(_lockAccess);
+    }
 
+    /// This is the method that will be called on remote calls on the method num_ex.
+    virtual void num_ex(const std::shared_ptr<CommonAPI::ClientId> _client, int32_t _input_num, num_exReply_t _reply) = 0;
 
     
     using CommonAPI::Stub<Test_CodeStubAdapter, Test_CodeStubRemoteEvent>::initStubAdapter;

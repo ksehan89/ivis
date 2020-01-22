@@ -27,6 +27,7 @@ SOURCES += \
         /home/ubuntu/ivis/CommonAPI_project/src-gen/v1/proj/testcode/Test_CodeDBusDeployment.cpp \
         /home/ubuntu/ivis/CommonAPI_project/src-gen/v1/proj/testcode/Test_CodeDBusStubAdapter.cpp \
         /home/ubuntu/ivis/CommonAPI_project/src-gen/v1/proj/testcode/Test_CodeStubDefault.cpp \
+        /home/ubuntu/ivis/CommonAPI_project/src-gen/v1/proj/testcode/CommonTypesDBusDeployment.cpp \
 #        /home/ubuntu/ivis/dlt_test \
 #        /home/ubuntu/ivis/DltRegistration/dltregistration.cpp \
         HelloStubMain.cpp \

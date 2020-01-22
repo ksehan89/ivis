@@ -50,8 +50,35 @@ public:
     virtual RpmValueAttribute& getRpmValueAttribute() {
         return delegate_->getRpmValueAttribute();
     }
+    /**
+     * Returns the wrapper class that provides access to the attribute a2.
+     */
+    virtual A2Attribute& getA2Attribute() {
+        return delegate_->getA2Attribute();
+    }
 
 
+    /**
+     * Calls num_ex with synchronous semantics.
+     *
+    * All const parameters are input parameters to this method.
+    * All non-const parameters will be filled with the returned values.
+     * The CallStatus will be filled when the method returns and indicate either
+     * "SUCCESS" or which type of error has occurred. In case of an error, ONLY the CallStatus
+     * will be set.
+     */
+    virtual void num_ex(const int32_t &_input_num, CommonAPI::CallStatus &_internalCallStatus, int32_t &_output_num, const CommonAPI::CallInfo *_info = nullptr);
+    /**
+     * Calls num_ex with asynchronous semantics.
+     *
+     * The provided callback will be called when the reply to this call arrives or
+     * an error occurs during the call. The CallStatus will indicate either "SUCCESS"
+     * or which type of error has occurred. In case of any error, ONLY the CallStatus
+     * will have a defined value.
+     * The std::future returned by this method will be fulfilled at arrival of the reply.
+     * It will provide the same value for CallStatus as will be handed to the callback.
+     */
+    virtual std::future<CommonAPI::CallStatus> num_exAsync(const int32_t &_input_num, Num_exAsyncCallback _callback = nullptr, const CommonAPI::CallInfo *_info = nullptr);
 
 
     /**
@@ -126,6 +153,25 @@ namespace Test_CodeExtensions {
         extension_type attributeExtension_;
     };
 
+    template <template <typename > class _ExtensionType>
+    class A2AttributeExtension {
+     public:
+        typedef _ExtensionType< Test_CodeProxyBase::A2Attribute> extension_type;
+    
+        static_assert(std::is_base_of<typename CommonAPI::AttributeExtension< Test_CodeProxyBase::A2Attribute>, extension_type>::value,
+                      "Not CommonAPI Attribute Extension!");
+    
+        A2AttributeExtension(Test_CodeProxyBase& proxy): attributeExtension_(proxy.getA2Attribute()) {
+        }
+    
+        inline extension_type& getA2AttributeExtension() {
+            return attributeExtension_;
+        }
+    
+     private:
+        extension_type attributeExtension_;
+    };
+
 } // namespace Test_CodeExtensions
 
 //
@@ -141,6 +187,15 @@ template <typename ... _AttributeExtensions>
 Test_CodeProxy<_AttributeExtensions...>::~Test_CodeProxy() {
 }
 
+template <typename ... _AttributeExtensions>
+void Test_CodeProxy<_AttributeExtensions...>::num_ex(const int32_t &_input_num, CommonAPI::CallStatus &_internalCallStatus, int32_t &_output_num, const CommonAPI::CallInfo *_info) {
+    delegate_->num_ex(_input_num, _internalCallStatus, _output_num, _info);
+}
+
+template <typename ... _AttributeExtensions>
+std::future<CommonAPI::CallStatus> Test_CodeProxy<_AttributeExtensions...>::num_exAsync(const int32_t &_input_num, Num_exAsyncCallback _callback, const CommonAPI::CallInfo *_info) {
+    return delegate_->num_exAsync(_input_num, _callback, _info);
+}
 
 template <typename ... _AttributeExtensions>
 const CommonAPI::Address &Test_CodeProxy<_AttributeExtensions...>::getAddress() const {
@@ -178,7 +233,8 @@ struct DefaultAttributeProxyHelper< ::v1::proj::testcode::Test_CodeProxy,
     _AttributeExtension> {
     typedef typename ::v1::proj::testcode::Test_CodeProxy<
             ::v1::proj::testcode::Test_CodeExtensions::SpeedValueAttributeExtension<_AttributeExtension>, 
-            ::v1::proj::testcode::Test_CodeExtensions::RpmValueAttributeExtension<_AttributeExtension>
+            ::v1::proj::testcode::Test_CodeExtensions::RpmValueAttributeExtension<_AttributeExtension>, 
+            ::v1::proj::testcode::Test_CodeExtensions::A2AttributeExtension<_AttributeExtension>
     > class_t;
 };
 }

@@ -181,6 +181,89 @@ Test_CodeStubRemoteEvent* Test_CodeStubDefault::initStubAdapter(const std::share
      return onRemoteSetRpmValueAttribute(_value);
  }
 
+ const ::v1::proj::testcode::CommonTypes::a2Struct& Test_CodeStubDefault::getA2Attribute() {
+     return a2AttributeValue_;
+ }
+
+ const ::v1::proj::testcode::CommonTypes::a2Struct& Test_CodeStubDefault::getA2Attribute(const std::shared_ptr<CommonAPI::ClientId> _client) {
+     (void)_client;
+     return getA2Attribute();
+ }
+
+ void Test_CodeStubDefault::setA2Attribute(::v1::proj::testcode::CommonTypes::a2Struct _value) {
+     std::shared_ptr<Test_CodeStubAdapter> stubAdapter = CommonAPI::Stub<Test_CodeStubAdapter,
+     Test_CodeStubRemoteEvent>::stubAdapter_.lock();
+     if(stubAdapter) {
+         stubAdapter->lockA2Attribute(true);
+         const bool valueChanged = (a2AttributeValue_ != _value);
+         if (valueChanged) {
+             a2AttributeValue_ = std::move(_value);
+             fireA2AttributeChanged(a2AttributeValue_);
+         }
+         stubAdapter->lockA2Attribute(false);
+     } else {
+         const bool valueChanged = trySetA2Attribute(std::move(_value));
+         if (valueChanged) {
+             fireA2AttributeChanged(a2AttributeValue_);
+         }
+     }
+}
+
+ bool Test_CodeStubDefault::trySetA2Attribute(::v1::proj::testcode::CommonTypes::a2Struct _value) {
+     if (!validateA2AttributeRequestedValue(_value))
+         return false;
+
+     bool valueChanged;
+     std::shared_ptr<Test_CodeStubAdapter> stubAdapter = CommonAPI::Stub<Test_CodeStubAdapter, Test_CodeStubRemoteEvent>::stubAdapter_.lock();
+     if(stubAdapter) {
+         stubAdapter->lockA2Attribute(true);
+         valueChanged = (a2AttributeValue_ != _value);
+         a2AttributeValue_ = std::move(_value);
+         stubAdapter->lockA2Attribute(false);
+     } else {
+         valueChanged = (a2AttributeValue_ != _value);
+         a2AttributeValue_ = std::move(_value);
+     }
+
+     return valueChanged;
+ }
+
+ bool Test_CodeStubDefault::validateA2AttributeRequestedValue(const ::v1::proj::testcode::CommonTypes::a2Struct &_value) {
+     (void)_value;
+     return true;
+ }
+
+ void Test_CodeStubDefault::setA2Attribute(const std::shared_ptr<CommonAPI::ClientId> _client, ::v1::proj::testcode::CommonTypes::a2Struct _value) {
+     (void)_client;
+     setA2Attribute(_value);
+ }
+
+ void Test_CodeStubDefault::onRemoteA2AttributeChanged() {
+     // No operation in default
+ }
+
+ void Test_CodeStubDefault::RemoteEventHandler::onRemoteA2AttributeChanged() {
+     assert(defaultStub_ !=NULL);
+     defaultStub_->onRemoteA2AttributeChanged();
+ }
+
+ bool Test_CodeStubDefault::RemoteEventHandler::onRemoteSetA2Attribute(::v1::proj::testcode::CommonTypes::a2Struct _value) {
+     assert(defaultStub_ !=NULL);
+     return defaultStub_->trySetA2Attribute(std::move(_value));
+ }
+
+ bool Test_CodeStubDefault::RemoteEventHandler::onRemoteSetA2Attribute(const std::shared_ptr<CommonAPI::ClientId> _client, ::v1::proj::testcode::CommonTypes::a2Struct _value) {
+     (void)_client;
+     return onRemoteSetA2Attribute(_value);
+ }
+
+
+void Test_CodeStubDefault::num_ex(const std::shared_ptr<CommonAPI::ClientId> _client, int32_t _input_num, num_exReply_t _reply) {
+    (void)_client;
+    (void)_input_num;
+    int32_t output_num = 0;
+    _reply(output_num);
+}
 
 
 

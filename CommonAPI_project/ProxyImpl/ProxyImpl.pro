@@ -27,6 +27,7 @@ INCLUDEPATH += \
 SOURCES += \
         /home/ubuntu/ivis/CommonAPI_project/src-gen/v1/proj/testcode/Test_CodeDBusDeployment.cpp \
         /home/ubuntu/ivis/CommonAPI_project/src-gen/v1/proj/testcode/Test_CodeDBusProxy.cpp \
+        /home/ubuntu/ivis/CommonAPI_project/src-gen/v1/proj/testcode/CommonTypesDBusDeployment.cpp \
 #        /home/ubuntu/ivis/dlt_test \
 #        /home/ubuntu/ivis/DltRegistration/dltregistration.cpp \
         HelloProxyMain.cpp \

@@ -13,14 +13,23 @@
 #include <v1/proj/testcode/Test_Code.hpp>
 
 
+#include <v1/proj/testcode/CommonTypes.hpp>
 
 #if !defined (COMMONAPI_INTERNAL_COMPILATION)
 #define COMMONAPI_INTERNAL_COMPILATION
 #endif
 
+#include <CommonAPI/Deployment.hpp>
+#include <CommonAPI/InputStream.hpp>
+#include <CommonAPI/OutputStream.hpp>
+#include <CommonAPI/Struct.hpp>
+#include <cstdint>
+#include <vector>
 
 #include <CommonAPI/Attribute.hpp>
 #include <CommonAPI/Proxy.hpp>
+#include <functional>
+#include <future>
 
 #undef COMMONAPI_INTERNAL_COMPILATION
 
@@ -33,12 +42,17 @@ class Test_CodeProxyBase
 public:
     typedef CommonAPI::ObservableAttribute< int32_t> SpeedValueAttribute;
     typedef CommonAPI::ObservableAttribute< int32_t> RpmValueAttribute;
+    typedef CommonAPI::ObservableAttribute< ::v1::proj::testcode::CommonTypes::a2Struct> A2Attribute;
 
+    typedef std::function<void(const CommonAPI::CallStatus&, const int32_t&)> Num_exAsyncCallback;
 
     virtual SpeedValueAttribute& getSpeedValueAttribute() = 0;
     virtual RpmValueAttribute& getRpmValueAttribute() = 0;
+    virtual A2Attribute& getA2Attribute() = 0;
 
 
+    virtual void num_ex(const int32_t &_input_num, CommonAPI::CallStatus &_internalCallStatus, int32_t &_output_num, const CommonAPI::CallInfo *_info = nullptr) = 0;
+    virtual std::future<CommonAPI::CallStatus> num_exAsync(const int32_t &_input_num, Num_exAsyncCallback _callback = nullptr, const CommonAPI::CallInfo *_info = nullptr) = 0;
 };
 
 } // namespace testcode

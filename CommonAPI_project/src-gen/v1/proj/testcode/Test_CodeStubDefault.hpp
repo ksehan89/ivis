@@ -59,7 +59,12 @@ public:
     COMMONAPI_EXPORT virtual const int32_t& getRpmValueAttribute(const std::shared_ptr<CommonAPI::ClientId> _client);
     COMMONAPI_EXPORT virtual void setRpmValueAttribute(int32_t _value);
     COMMONAPI_EXPORT virtual void setRpmValueAttribute(const std::shared_ptr<CommonAPI::ClientId> _client, int32_t _value);
+    COMMONAPI_EXPORT virtual const ::v1::proj::testcode::CommonTypes::a2Struct& getA2Attribute();
+    COMMONAPI_EXPORT virtual const ::v1::proj::testcode::CommonTypes::a2Struct& getA2Attribute(const std::shared_ptr<CommonAPI::ClientId> _client);
+    COMMONAPI_EXPORT virtual void setA2Attribute(::v1::proj::testcode::CommonTypes::a2Struct _value);
+    COMMONAPI_EXPORT virtual void setA2Attribute(const std::shared_ptr<CommonAPI::ClientId> _client, ::v1::proj::testcode::CommonTypes::a2Struct _value);
 
+    COMMONAPI_EXPORT virtual void num_ex(const std::shared_ptr<CommonAPI::ClientId> _client, int32_t _input_num, num_exReply_t _reply);
 
 
     
@@ -70,6 +75,9 @@ protected:
     COMMONAPI_EXPORT virtual bool trySetRpmValueAttribute(int32_t _value);
     COMMONAPI_EXPORT virtual bool validateRpmValueAttributeRequestedValue(const int32_t &_value);
     COMMONAPI_EXPORT virtual void onRemoteRpmValueAttributeChanged();
+    COMMONAPI_EXPORT virtual bool trySetA2Attribute(::v1::proj::testcode::CommonTypes::a2Struct _value);
+    COMMONAPI_EXPORT virtual bool validateA2AttributeRequestedValue(const ::v1::proj::testcode::CommonTypes::a2Struct &_value);
+    COMMONAPI_EXPORT virtual void onRemoteA2AttributeChanged();
     class COMMONAPI_EXPORT_CLASS_EXPLICIT RemoteEventHandler: public virtual Test_CodeStubRemoteEvent {
     public:
         COMMONAPI_EXPORT RemoteEventHandler(Test_CodeStubDefault *_defaultStub);
@@ -82,6 +90,10 @@ protected:
         COMMONAPI_EXPORT virtual bool onRemoteSetRpmValueAttribute(const std::shared_ptr<CommonAPI::ClientId> _client, int32_t _value);
         COMMONAPI_EXPORT virtual void onRemoteRpmValueAttributeChanged();
 
+        COMMONAPI_EXPORT virtual bool onRemoteSetA2Attribute(::v1::proj::testcode::CommonTypes::a2Struct _value);
+        COMMONAPI_EXPORT virtual bool onRemoteSetA2Attribute(const std::shared_ptr<CommonAPI::ClientId> _client, ::v1::proj::testcode::CommonTypes::a2Struct _value);
+        COMMONAPI_EXPORT virtual void onRemoteA2AttributeChanged();
+
 
     private:
         Test_CodeStubDefault *defaultStub_;
@@ -93,6 +105,7 @@ private:
 
     int32_t speedValueAttributeValue_ {};
     int32_t rpmValueAttributeValue_ {};
+    ::v1::proj::testcode::CommonTypes::a2Struct a2AttributeValue_ {};
 
     CommonAPI::Version interfaceVersion_;
 };
