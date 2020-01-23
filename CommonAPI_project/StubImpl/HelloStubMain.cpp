@@ -41,22 +41,10 @@ int injection_callback(uint32_t service_id, void* data, uint32_t length)
         stub_requestVal.setB(!stub_requestVal.getB());
         stub_requestVal.setD((stub_requestVal.getD() + 1) * 2);
         HelloStubMain::getInstance()->getMyServiceInst()->setA2Attribute(stub_requestVal);
-
-        ////////////////////////
-        //inputNum = HelloStubMain::getInstance()->getMyServiceInst()->get
-        ////////////////////////
     }
     DLT_LOG(myContext2, DLT_LOG_INFO, DLT_INT(5), DLT_STRING("speedValeu : "), DLT_INT(speedValue));
     return 0;
 }
-
-//int HelloStubMain::num_ex(const int32_t& _input_num, CommonAPI::CallStatus& _internalCallStatus, int32_t& _output_num, const CommonAPI::CallInfo* _info = nullptr)
-//{
-//    std::cout << "input_num : " << _input_num << std::endl;
-//    _output_num = _input_num + 1;
-//    std::cout << "output_num :" << _output_num << std::endl;
-//    return 0;
-//}
 
 HelloStubMain* HelloStubMain::getInstance()
 {
@@ -102,11 +90,6 @@ void HelloStubMain::Init()
     // dlt injection
     //DLT_INJECTION_CALLBACK(CONTEXT, SERVICEID, CALLBACK);
     DLT_REGISTER_INJECTION_CALLBACK(myContext1, 0x1000, &injection_callback);
-
-    //////////////////
-    //num_ex();
-    //DLT_REGISTER_INJECTION_CALLBACK(myContext1, 0x1001, &num_ex);
-    //////////////////
 
     // unregister your contexts
     //    DLT_UNREGISTER_CONTEXT(myContext1);

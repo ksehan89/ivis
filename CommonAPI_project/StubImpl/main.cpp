@@ -20,6 +20,7 @@ int main(int argc, char* argv[])
 
     /////////////////////////////////////////////
     //HelloStubMain* stubInst = new HelloStubMain();
+    // 위 형식 사용시 해제 조건 필요
 
     HelloStubMain::getInstance()->Init();
     /////////////////////////////////////////////

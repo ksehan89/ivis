@@ -48,7 +48,6 @@ void HelloProxyMain::callbackConnectionStatusChanged(const CommonAPI::Availabili
 
         std::cout << "output_num_test : " << output_num << std::endl;
 
-        //mMyProxy->num_ex();
         mMyProxy->num_ex(input_num, callStatus, output_num, &info);
         if (callStatus != CommonAPI::CallStatus::SUCCESS) {
             std::cerr << "Remote call failed!\n";
