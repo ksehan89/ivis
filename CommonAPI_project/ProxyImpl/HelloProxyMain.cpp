@@ -37,6 +37,8 @@ void HelloProxyMain::callbackConnectionStatusChanged(const CommonAPI::Availabili
         mMyProxy->getSpeedValueAttribute().getChangedEvent().subscribe(&speedValue);
         mMyProxy->getRpmValueAttribute().getChangedEvent().subscribe(&rpmValue);
 
+        mMyProxy->getA2Attribute().getChangedEvent().subscribe(std::bind(&HelloProxyMain::attribute_changed, this, std::placeholders::_1));
+
         ///////////////////////////////////
 
         const int input_num = 0;
@@ -55,8 +57,24 @@ void HelloProxyMain::callbackConnectionStatusChanged(const CommonAPI::Availabili
         std::cout << "input_num_proxy : " << input_num << std::endl;
         std::cout << "output_num_test3 : " << output_num << std::endl;
 
+        v1::proj::testcode::CommonTypes::a2Struct requestValue;
+        v1::proj::testcode::CommonTypes::a2Struct responseValue;
+
+        requestValue.setA(100);
+        requestValue.setB(true);
+        requestValue.setD(3.14);
+
+        mMyProxy->getA2Attribute().setValue(requestValue, callStatus, responseValue);
+
         ///////////////////////////////////
     }
+}
+
+void HelloProxyMain::attribute_changed(const v1::proj::testcode::CommonTypes::a2Struct& strAVal)
+{
+    std::cout << "attribute_changed_int : " << strAVal.getA() << std::endl;
+    std::cout << "attribute_changed_bool : " << strAVal.getB() << std::endl;
+    std::cout << "attribute_changed_double : " << strAVal.getD() << std::endl;
 }
 
 void HelloProxyMain::InitAsync()

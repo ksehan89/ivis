@@ -35,6 +35,13 @@ int injection_callback(uint32_t service_id, void* data, uint32_t length)
         HelloStubMain::getInstance()->getMyServiceInst()->setSpeedValueAttribute(++speedValue);
         DLT_LOG(myContext2, DLT_LOG_INFO, DLT_INT(5), DLT_STRING("set speedValeu : "), DLT_INT(speedValue));
 
+        v1::proj::testcode::CommonTypes::a2Struct stub_requestVal;
+        stub_requestVal = HelloStubMain::getInstance()->getMyServiceInst()->getA2Attribute();
+        stub_requestVal.setA(stub_requestVal.getA() + 1);
+        stub_requestVal.setB(!stub_requestVal.getB());
+        stub_requestVal.setD((stub_requestVal.getD() + 1) * 2);
+        HelloStubMain::getInstance()->getMyServiceInst()->setA2Attribute(stub_requestVal);
+
         ////////////////////////
         //inputNum = HelloStubMain::getInstance()->getMyServiceInst()->get
         ////////////////////////
