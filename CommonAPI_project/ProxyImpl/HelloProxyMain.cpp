@@ -37,17 +37,19 @@ void HelloProxyMain::callbackConnectionStatusChanged(const CommonAPI::Availabili
         mMyProxy->getSpeedValueAttribute().getChangedEvent().subscribe(&speedValue);
         mMyProxy->getRpmValueAttribute().getChangedEvent().subscribe(&rpmValue);
 
+        // A2 attribute 호출
         mMyProxy->getA2Attribute().getChangedEvent().subscribe(std::bind(&HelloProxyMain::attribute_changed, this, std::placeholders::_1));
 
         ///////////////////////////////////
 
         const int input_num = 0;
-        CommonAPI::CallStatus callStatus;
         int output_num = 0;
+        CommonAPI::CallStatus callStatus;
         CommonAPI::CallInfo info(1000);
 
         std::cout << "output_num_test : " << output_num << std::endl;
 
+        // num_ex function 호출
         mMyProxy->num_ex(input_num, callStatus, output_num, &info);
         if (callStatus != CommonAPI::CallStatus::SUCCESS) {
             std::cerr << "Remote call failed!\n";
@@ -59,6 +61,7 @@ void HelloProxyMain::callbackConnectionStatusChanged(const CommonAPI::Availabili
         v1::proj::testcode::CommonTypes::a2Struct requestValue;
         v1::proj::testcode::CommonTypes::a2Struct responseValue;
 
+        // set
         requestValue.setA(100);
         requestValue.setB(true);
         requestValue.setD(3.14);
@@ -69,6 +72,7 @@ void HelloProxyMain::callbackConnectionStatusChanged(const CommonAPI::Availabili
     }
 }
 
+// attribute value changed, output
 void HelloProxyMain::attribute_changed(const v1::proj::testcode::CommonTypes::a2Struct& strAVal)
 {
     std::cout << "attribute_changed_int : " << strAVal.getA() << std::endl;

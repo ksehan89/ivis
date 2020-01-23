@@ -35,6 +35,7 @@ int injection_callback(uint32_t service_id, void* data, uint32_t length)
         HelloStubMain::getInstance()->getMyServiceInst()->setSpeedValueAttribute(++speedValue);
         DLT_LOG(myContext2, DLT_LOG_INFO, DLT_INT(5), DLT_STRING("set speedValeu : "), DLT_INT(speedValue));
 
+        // attribute 값 변경시 적용 및 반환
         v1::proj::testcode::CommonTypes::a2Struct stub_requestVal;
         stub_requestVal = HelloStubMain::getInstance()->getMyServiceInst()->getA2Attribute();
         stub_requestVal.setA(stub_requestVal.getA() + 1);
@@ -107,6 +108,7 @@ void HelloStubMain::Init()
     //    qInstallMessageHandler(&(DltRegistration::messageHandler));
 }
 
+// value changed, return
 void StubImpl::num_ex(const std::shared_ptr<CommonAPI::ClientId> _client, int32_t _input_num, v1::proj::testcode::Test_CodeStub::num_exReply_t _reply)
 {
     std::cout << "input_num_stub_test : " << _input_num << std::endl;
