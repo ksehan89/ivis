@@ -4,4 +4,6 @@
 *.o
 Makefile*
 *.pro.user
-
+build*
+.fileTable*
+framework.info*

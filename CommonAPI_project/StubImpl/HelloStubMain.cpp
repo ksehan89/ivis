@@ -34,18 +34,22 @@ int injection_callback(uint32_t service_id, void* data, uint32_t length)
         DLT_LOG(myContext2, DLT_LOG_INFO, DLT_STRING("get speedValeu : "), DLT_INT(speedValue));
         HelloStubMain::getInstance()->getMyServiceInst()->setSpeedValueAttribute(++speedValue);
         DLT_LOG(myContext2, DLT_LOG_INFO, DLT_INT(5), DLT_STRING("set speedValeu : "), DLT_INT(speedValue));
+
+        ////////////////////////
+        //inputNum = HelloStubMain::getInstance()->getMyServiceInst()->get
+        ////////////////////////
     }
     DLT_LOG(myContext2, DLT_LOG_INFO, DLT_INT(5), DLT_STRING("speedValeu : "), DLT_INT(speedValue));
     return 0;
 }
 
-int num_ex(const int32_t& _input_num, CommonAPI::CallStatus& _internalCallStatus, int32_t& _output_num, const CommonAPI::CallInfo* _info = nullptr)
-{
-    std::cout << "input_num : " << _input_num << std::endl;
-    _output_num = _input_num + 1;
-    std::cout << "output_num :" << _output_num << std::endl;
-    return 0;
-}
+//int HelloStubMain::num_ex(const int32_t& _input_num, CommonAPI::CallStatus& _internalCallStatus, int32_t& _output_num, const CommonAPI::CallInfo* _info = nullptr)
+//{
+//    std::cout << "input_num : " << _input_num << std::endl;
+//    _output_num = _input_num + 1;
+//    std::cout << "output_num :" << _output_num << std::endl;
+//    return 0;
+//}
 
 HelloStubMain* HelloStubMain::getInstance()
 {
@@ -94,7 +98,7 @@ void HelloStubMain::Init()
 
     //////////////////
     //num_ex();
-    DLT_REGISTER_INJECTION_CALLBACK(myContext1, 0x1000, &num_ex);
+    //DLT_REGISTER_INJECTION_CALLBACK(myContext1, 0x1001, &num_ex);
     //////////////////
 
     // unregister your contexts
@@ -111,4 +115,15 @@ void HelloStubMain::Init()
     //    dlt->registerCategory(&DevDigitalCluster(), "dccm1", "HMDC.ClusterHMI.Common1");
     //    globalDltRegistration()->setMinLogLevel(QtDebugMsg);
     //    qInstallMessageHandler(&(DltRegistration::messageHandler));
+}
+
+void StubImpl::num_ex(const std::shared_ptr<CommonAPI::ClientId> _client, int32_t _input_num, v1::proj::testcode::Test_CodeStub::num_exReply_t _reply)
+{
+    std::cout << "input_num_stub_test : " << _input_num << std::endl;
+
+    int32_t result = 0;
+    //result = _input_num + 1;
+    std::cout << "output_num :" << result << std::endl;
+    //_reply(result);
+    _reply(++_input_num);
 }

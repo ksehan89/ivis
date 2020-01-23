@@ -12,6 +12,11 @@ void rpmValue(const int32_t& rpmVal)
     std::cout << "Receive rpmValue : " << rpmVal << std::endl;
 }
 
+void num_ex(const int32_t& input_num)
+{
+    std::cout << "Receive input_num : " << input_num << std::endl;
+}
+
 void recv_cb(const CommonAPI::CallStatus& callStatus, const int32_t val)
 {
     if (callStatus == CommonAPI::CallStatus::SUCCESS) {
@@ -31,6 +36,26 @@ void HelloProxyMain::callbackConnectionStatusChanged(const CommonAPI::Availabili
         //attribute chage event subscribe
         mMyProxy->getSpeedValueAttribute().getChangedEvent().subscribe(&speedValue);
         mMyProxy->getRpmValueAttribute().getChangedEvent().subscribe(&rpmValue);
+
+        ///////////////////////////////////
+
+        const int input_num = 0;
+        CommonAPI::CallStatus callStatus;
+        int output_num = 0;
+        CommonAPI::CallInfo info(1000);
+
+        std::cout << "output_num_test : " << output_num << std::endl;
+
+        //mMyProxy->num_ex();
+        mMyProxy->num_ex(input_num, callStatus, output_num, &info);
+        if (callStatus != CommonAPI::CallStatus::SUCCESS) {
+            std::cerr << "Remote call failed!\n";
+            //return -1;
+        }
+        std::cout << "input_num_proxy : " << input_num << std::endl;
+        std::cout << "output_num_test3 : " << output_num << std::endl;
+
+        ///////////////////////////////////
     }
 }
 
@@ -42,22 +67,8 @@ void HelloProxyMain::InitAsync()
 
     mMyProxy = CommonAPI::Runtime::get()->buildProxy<v1::proj::testcode::Test_CodeProxy>(domain, instance, connection);
 
-    const int input_num = 0;
-    CommonAPI::CallStatus callStatus;
-    int output_num = 0;
-    CommonAPI::CallInfo info(10000);
-
     if (nullptr != mMyProxy) {
         mMyProxy->getProxyStatusEvent().subscribe(std::bind(&HelloProxyMain::callbackConnectionStatusChanged, this, std::placeholders::_1));
-
-        ///////////////////////////////////
-        mMyProxy->num_ex(input_num, callStatus, output_num, &info);
-        std::cout << "Got num: '" << output_num << "'\n";
-        if (callStatus != CommonAPI::CallStatus::SUCCESS) {
-            std::cerr << "Remote call failed!\n";
-            //return -1;
-        }
-        ///////////////////////////////////
 
         std::function<void(const CommonAPI::CallStatus&, const int32_t)> fcb = recv_cb;
     }

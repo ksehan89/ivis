@@ -19,7 +19,9 @@ private:
 };
 
 class StubImpl : public v1::proj::testcode::Test_CodeStubDefault {
+
 public:
+    virtual void num_ex(const std::shared_ptr<CommonAPI::ClientId> _client, int32_t _input_num, num_exReply_t _reply);
     //    static int injection_callback(uint32_t service_id, void* data, uint32_t length);
 };
 
