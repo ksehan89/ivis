@@ -11,7 +11,13 @@ int main(int argc, char* argv[])
 
     QQmlApplicationEngine engine;
     // QQmlApplicationEngine을 사용하기 위해 변수 engine을 선언해 준다. Q_Slots load함수 사용하기 위해.
-    const QUrl url(QStringLiteral("qrc:/main.qml"));
+
+    // qt resource use, qrc search
+    const QUrl url(QStringLiteral("qrc:/Test/qml/main.qml"));
+
+    // qt resource not use, file system search
+    //    const QUrl url(QStringLiteral("file:/home/ubuntu/ivis/Qt_ex1/qml/main.qml"));
+
     // Qurl을 사용하기 위해 변수 url을 선언해주고, 해당 url값은 문자열 "qrc:/main.qml"을 넣어준다.
 
     //    qDebug() << "url0 : " << url;

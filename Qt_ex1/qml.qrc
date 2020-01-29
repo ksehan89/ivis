@@ -1,5 +1,15 @@
 <RCC>
+    <qresource prefix="/Test">
+        <file>qml/main.qml</file>
+        <file>qml/CustomPopupBG.qml</file>
+    </qresource>
     <qresource prefix="/">
-        <file>main.qml</file>
+        <file>POPUP/POPUP_IMG_BG_R.png</file>
+        <file>POPUP/POPUP_IMG_BG_W.png</file>
+        <file>POPUP/POPUP_IMG_BG_Y.png</file>
+        <file>POPUP/POPUP_IMG_R.png</file>
+        <file>POPUP/POPUP_IMG_W.png</file>
+        <file>POPUP/POPUP_IMG_Y.png</file>
+        <file>POPUP/SCC_IMG_SYMBOL_02.png</file>
     </qresource>
 </RCC>
