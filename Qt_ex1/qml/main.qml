@@ -30,14 +30,18 @@ Window {
 //    property point name: value
 
 
+
+
+
+
+
+
     id: window1
     visible: true
     width: 600
     height: 400
     title: qsTr("Hello World")
-    Component.onCompleted: {
-        console.log("Component.onCompleted - 1")
-    }
+
 
     //    Item {
     //        id:guideLine
@@ -64,134 +68,216 @@ Window {
     //        opacity: 0.3
 
     //    }
-    CustomPopupBG {
-        id:root
+//    CustomPopupBG {
+//        id:root
 
 
-        imagePath: "qrc:/POPUP/POPUP_IMG_Y.png"
+//        imagePath: "qrc:/POPUP/POPUP_IMG_Y.png"
 
-        property int mod: 0
+//        property int mod: 0
 
-        Component.onCompleted: {
-            console.log("Component.onCompleted - 2")
-        }
-
-
-
-        Rectangle {
-            //            id: popup_bg
-            ////            width: 100
-            ////            height: 100
-            //            x : 500
-            //            y : 500
-            Component.onCompleted: {
-                console.log("Component.onCompleted - 3")
-            }
-        }
-
-        Rectangle {
-            id: test
-            //            x: popup_bg3.x + 300
-            //            y: 400
-            width: 300
-            height: 300
-            color: "red"
-            Text {
-                id: name
-                text: window1.text
-                Component.onCompleted: {
-                    console.log("Component.onCompleted - 4")
-                }
-            }
-            Component.onCompleted: {
-                console.log("Component.onCompleted - 5")
-            }
-        }
-
-        Rectangle {
-            id: test2
-            width: 100
-            height: 100
-            color: "yellow"
-            anchors.right: test.right
-            anchors.top: test.top
-            Component.onCompleted: {
-                console.log("Component.onCompleted - 6")
-            }
-
-        }
+//        Component.onCompleted: {
+//            console.log("Component.onCompleted - 2")
+//        }
 
 
-        MouseArea {
-            id: mouseArea
-            anchors.fill:test2
-            hoverEnabled: true
-            propagateComposedEvents: true
 
+//        Rectangle {
+//            //            id: popup_bg
+//            ////            width: 100
+//            ////            height: 100
+//            //            x : 500
+//            //            y : 500
+//            Component.onCompleted: {
+//                console.log("Component.onCompleted - 3")
+//            }
+//        }
 
-            onCanceled: {
-                console.log("program exit: ")
-            }
+//        Rectangle {
+//            id: test
+//            //            x: popup_bg3.x + 300
+//            //            y: 400
+//            width: 300
+//            height: 300
+//            color: "red"
+//            Text {
+//                id: name
+//                text: window1.text
+//                Component.onCompleted: {
+//                    console.log("Component.onCompleted - 4")
+//                }
+//            }
+//            Component.onCompleted: {
+//                console.log("Component.onCompleted - 5")
+//            }//        }
 
-//            onPositionChanged: {
-//                console.log("onPositionChanged ~~~~~~~~~~~~~~~")
+//        Rectangle {
+//            id: test2
+//            width: 100
+//            height: 100
+//            color: "yellow"
+//            anchors.right: test.right
+//            anchors.top: test.top
+//            Component.onCompleted: {
+//                console.log("Component.onCompleted - 6")
 //            }
 
-            onDoubleClicked: {
-                console.log("onDoubleClicked...12345")
-            }
-
-            onWheel: {
-                console.log("onWhell #####")
-
-            }
-
-            onReleased: {
-                console.log("onReleased test")
-            }
-
-            onPressAndHold: {
-                console.log("onPressAndHold........")
-            }
-
-            // test2 영역으로 한정 (anchors.fill:test2)
-            onEntered: {
-                console.log("hover in")
-            }
-            onExited: {
-                console.log("hover out")
-            }
-
-            onPressed: {
-//                console.log("mod1 : ", root.mod)
-                root.mod+=1
-//                console.log("mod2 : ", root.mod)
-                if (0 == root.mod%3) {
-                    root.imagePath = "qrc:/POPUP/POPUP_IMG_W.png"
-                    console.log("mod: ", root.mod)
-                } else if (1 == root.mod%3) {
-                    root.imagePath = "qrc:/POPUP/POPUP_IMG_R.png"
-                    console.log("mod: ", root.mod)
-                } else {
-                    root.imagePath = "qrc:/POPUP/POPUP_IMG_Y.png"
-                    console.log("mod: ", root.mod)
-                }
-            }
+//        }
 
 
-            onClicked: {
-                console.log("@@@@@@@@@@@@@@@@@@@@@"+ isEnable)
-                if (false == isEnable) {
-                    console.log("log1 : ", isEnable)
-                    isEnable = true
-                    console.log("log2 : ", isEnable)
+//        MouseArea {
+//            id: mouseArea
+//            anchors.fill:test2
+//            hoverEnabled: true
+//            propagateComposedEvents: true
 
-                } else {
-                    console.log("log3 : ", isEnable)
-                    isEnable = false
-                    console.log("log4 : ", isEnable)
-                }
-            }
+
+//            onCanceled: {
+//                console.log("program exit: ")
+//            }
+
+////            onPositionChanged: {
+////                console.log("onPositionChanged ~~~~~~~~~~~~~~~")
+////            }
+
+//            onDoubleClicked: {
+//                console.log("onDoubleClicked...12345")
+//            }
+
+//            onWheel: {
+//                console.log("onWhell #####")
+
+//            }
+
+//            onReleased: {
+//                console.log("onReleased test")
+//            }
+
+//            onPressAndHold: {
+//                console.log("onPressAndHold........")
+//            }
+
+//            // test2 영역으로 한정 (anchors.fill:test2)
+//            onEntered: {
+//                console.log("hover in")
+//            }
+//            onExited: {
+//                console.log("hover out")
+//            }
+
+//            onPressed: {
+////                console.log("mod1 : ", root.mod)
+//                root.mod+=1
+////                console.log("mod2 : ", root.mod)
+//                if (0 == root.mod%3) {
+//                    root.imagePath = "qrc:/POPUP/POPUP_IMG_W.png"
+//                    console.log("mod: ", root.mod)
+//                } else if (1 == root.mod%3) {
+//                    root.imagePath = "qrc:/POPUP/POPUP_IMG_R.png"
+//                    console.log("mod: ", root.mod)
+//                } else {
+//                    root.imagePath = "qrc:/POPUP/POPUP_IMG_Y.png"
+//                    console.log("mod: ", root.mod)
+//                }
+//            }
+
+
+//            onClicked: {
+
+//                console.log("@@@@@@@@@@@@@@@@@@@@@ "+ isEnable)
+//                console.log("@@@@@@@@@@@@@@@@@@@@@ "+ mouse.x)
+//                console.log("@@@@@@@@@@@@@@@@@@@@@ "+ mouse.y)
+
+//                if (false == isEnable) {
+//                    console.log("log1 : ", isEnable)
+//                    isEnable = true
+//                    console.log("log2 : ", isEnable)
+
+//                } else {
+//                    console.log("log3 : ", isEnable)
+//                    isEnable = false
+//                    console.log("log4 : ", isEnable)
+//                }
+//            }
+
+
+//        }
+//    }
+
+    property int colorIndex: 0
+
+    property bool myBool: false
+    property int myInt: 0
+
+//    CustomPopupBG{
+//        id: custom
+//        Rectangle{
+//            x: 300
+//            y: 300
+//            width: 100
+//            height: 100
+//            color: "gold"
+//            MouseArea{
+//                anchors.fill: parent
+//                onClicked: {
+//                    colorIndex++
+//                    if (0 == colorIndex%3) {
+//                        custom.select_enum = 1
+//                    } else if (1 == colorIndex%3) {
+//                        custom.select_enum = 2
+//                    } else if (2 == colorIndex%3) {
+//                        custom.select_enum = 3
+//                    } else {
+
+//                    }
+//                }
+//            }
+//        }
+
+//    }
+
+    Text {
+        id:temp
+        width: 100
+        color: "blue"
+
+        //text: "122333444455555----########"
+
+        clip: true
+
+//        elide:Text.ElideLeft
+//        elide:Text.ElideMiddle
+        elide:Text.ElideRight
+
+        text: "1
+22
+333
+4444
+55555
+----
+########"
+        horizontalAlignment: Text.AlignRight
+        //horizontalAlignment: Text.AlignHCenter
+        //verticalAlignment: Text.AlignVCenter
+
+        font.bold: true
+        font.italic: true
+
+        //text: "1 22 333 4444 55555 ---- ########"
+        //wrapMode: Text.WordWrap
+
+        Component.onCompleted: {
+            console.log("contentHeight : " , contentHeight)
+            console.log("contentwidth : " , contentWidth)
+            console.log("line count : " , lineCount)
+            console.log("line height : " , lineHeight)
+        }
+
+        Rectangle{
+            anchors.fill: parent
+            color: "red"
+            opacity: 0.3
         }
     }
+
 }
