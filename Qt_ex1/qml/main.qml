@@ -236,6 +236,13 @@ Window {
 
 //    }
 
+    CustomPopupBG {
+        id: customFont
+        Text {
+
+        }
+    }
+
     Text {
         id:temp
         width: 100

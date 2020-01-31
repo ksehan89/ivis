@@ -38,6 +38,11 @@ Item {
         }
     }
 
+    property int fone_enum: CustomPopupBG.FontType.FontBold
+    enum FontType {
+        FontBold, FontItalic
+    }
+
 
 
 
