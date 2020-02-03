@@ -23,9 +23,10 @@ Item {
     }
 
     Rectangle {
-        width: 100
-        height: 100
+        width: 200
+        height: 200
         color: {
+            console.log("select_enum : ", select_enum)
             if (CustomPopupBG.Color1.Red1 === select_enum) {
                 "red"
             } else if (CustomPopupBG.Color1.Green1 === select_enum) {
@@ -37,14 +38,5 @@ Item {
             }
         }
     }
-
-    property int fone_enum: CustomPopupBG.FontType.FontBold
-    enum FontType {
-        FontBold, FontItalic
-    }
-
-
-
-
 
 }

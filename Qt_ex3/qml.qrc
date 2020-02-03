@@ -1,6 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>CustomText.qml</file>
+        <file>CustomComponent.qml</file>
     </qresource>
 </RCC>

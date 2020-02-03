@@ -209,39 +209,39 @@ Window {
     property bool myBool: false
     property int myInt: 0
 
-//    CustomPopupBG{
-//        id: custom
-//        Rectangle{
-//            x: 300
-//            y: 300
-//            width: 100
-//            height: 100
-//            color: "gold"
-//            MouseArea{
-//                anchors.fill: parent
-//                onClicked: {
-//                    colorIndex++
-//                    if (0 == colorIndex%3) {
-//                        custom.select_enum = 1
-//                    } else if (1 == colorIndex%3) {
-//                        custom.select_enum = 2
-//                    } else if (2 == colorIndex%3) {
-//                        custom.select_enum = 3
-//                    } else {
+    CustomPopupBG{
+        id: custom
+        Rectangle{
+            x: 300
+            y: 300
+            width: 100
+            height: 100
+            color: "gold"
+            MouseArea{
+                anchors.fill: parent
+                onClicked: {
+                    colorIndex++
+                    if (0 == colorIndex%3) {
+                        custom.select_enum = 1
+                    } else if (1 == colorIndex%3) {
+                        custom.select_enum = 2
+                    } else if (2 == colorIndex%3) {
+                        custom.select_enum = 3
+                    } else {
 
-//                    }
-//                }
-//            }
-//        }
-
-//    }
-
-    CustomPopupBG {
-        id: customFont
-        Text {
-
+                    }
+                }
+            }
         }
+
     }
+
+//    CustomPopupBG {
+//        id: customFont
+//        Text {
+
+//        }
+//    }
 
     Text {
         id:temp
