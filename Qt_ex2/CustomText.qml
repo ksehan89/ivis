@@ -8,28 +8,24 @@ Item {
 
     Text {
         text: "Hello world"
-        //font.bold : true
-        property int a: 0
 
         font.bold: {
-            //font.bold = false
-            //            console.log("select_enum 1 : ", select_enum)
-            //            console.log("custom.select_enum 1 : ", custom.select_enum)
-            //            console.log("CustomText.FontType.FontBold 1 : ", CustomText.FontType.FontBold)
             if (CustomText.FontType.FontNormal === select_enum) {
-                console.log("select_enum 2 : ", custom.select_enum)
-                //                    console.log("CustomText.FontType.FontBold 2 : ", CustomText.FontType.Bold)
                 false
             } else if (CustomText.FontType.FontBold === select_enum) {
-                console.log("select_enum 3 : ", custom.select_enum)
-                //                    console.log("select_enum 3 : ", select_enum)
-                //                    console.log("CustomText.FontType.FontBold 3 : ", CustomText.FontType.Bold)
                 true
             } else {
-                console.log("abccccc")
                 false
             }
 
+        }
+
+        font.italic: {
+            if( CustomText.FontType.FontItalic === select_enum ) {
+                true
+            } else {
+                false
+            }
         }
     }
 

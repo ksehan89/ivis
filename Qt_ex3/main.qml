@@ -32,51 +32,81 @@ Window {
                 sigTest.signalTestor.connect(bb)
                 sigTest.signalTestor.connect(cc)
                 sigTest.signalTestor("Tom")
-                removecc();
-                //sigTest.signalTestor.connect(removecc)
-                //sigTest.signalTestor.disconnect(removecc)
-                //sigTest.signalTestor("abc")
-            }
-            function aa(myIndex) {
-                console.log("mySig aa : ", customComponent.myIndex)
-            }
-            function bb(myIndex) {
-                console.log("mySig bb : ", customComponent.myIndex)
-            }
-            function cc(myIndex) {
-                console.log("mySig cc : ", customComponent.myIndex)
-            }
-            function removecc(myIndex) {
-                sigTest.signalTestor.disconnect(cc)
-                console.log("disconnect cc.. : ", myIndex)
+                //sigTest.signalTestor.disconnect(cc)
+                removeConnectionCC()
+                sigTest.signalTestor("abc")
+                //removecc(cc);
             }
 
-//            // Connections 방식의 connect
-//            Connections {
-//                target: sigTest
-//                onSignalTestor: {
-//                    sigTest.signalTestor.connect(aa)
-//                    sigTest.signalTestor.connect(bb)
-//                    sigTest.signalTestor.connect(cc)
-//                    console.log("onSigTestor : " , aaa1)
-//                    sigTest.signalTestor.connect(removecc)
+            function removeConnectionAA() {
+                removeConnection(aa)
+            }
 
-//                }
-//                function aa(myIndex) {
-//                    console.log("mySig aa : ", customComponent.myIndex)
-//                }
-//                function bb(myIndex) {
-//                    console.log("mySig bb : ", customComponent.myIndex)
-//                }
-//                function cc(myIndex) {
-//                    console.log("mySig cc : ", customComponent.myIndex)
-//                }
-//                function removecc(myIndex) {
-//                    sigTest.signalTestor.disconnect(cc)
-//                    console.log("disconnect cc.. : ", myIndex)
-//                }
+            function removeConnectionBB() {
+                removeConnection(bb)
+            }
 
+            function removeConnectionCC() {
+                removeConnection(cc)
+            }
+
+            function removeConnection(type) {
+                sigTest.signalTestor.disconnect(type)
+            }
+            //===========================================================
+//            function aa(myIndex) {
+//                console.log("mySig aa : ", customComponent.myIndex)
 //            }
+
+//            function bb(myIndex) {
+//                console.log("mySig bb : ", customComponent.myIndex)
+//            }
+
+//            function cc(myIndex) {
+//                console.log("mySig cc : ", customComponent.myIndex)
+//            }
+
+//            function removecc(myIndex) {
+//                sigTest.signalTestor.disconnect(cc)
+//                console.log("disconnect cc.. : ", myIndex)
+//            }
+            //===========================================================
+
+
+
+
+            // Connections 방식의 connect
+            Connections {
+                target: sigTest
+                onSignalTestor: {
+                    sigTest.signalTestor.connect(aa)
+                    sigTest.signalTestor.connect(bb)
+                    sigTest.signalTestor.connect(cc)
+                    //sigTest.signalTestor("MARK1")
+                    removeConnectionBB()
+                    //console.log("onSigTestor : " , aaa1)
+                    //sigTest.signalTestor.disconnect(aa)
+                    //sigTest.signalTestor.connect(removecc)
+                    //sigTest.signalTestor("MARK2")
+                }
+
+                function removeConnectionAA() {
+                    removeConnection(aa)
+                }
+
+                function removeConnectionBB() {
+                    removeConnection(bb)
+                }
+
+                function removeConnectionCC() {
+                    removeConnection(cc)
+                }
+
+                function removeConnection(type) {
+                    sigTest.signalTestor.disconnect(type)
+                }
+
+            }
 
 
         }
@@ -117,7 +147,7 @@ Window {
 //    Connections{
 //        target: custamComponent
 //        onMyIndexChanged: {
-//            console.log("onMyIndexChanged: ", custamComponent.myIndex)
+//            console.log("onMyIndexChanged: ", customComponent.myIndex)
 //        }
 //    }
 

@@ -25,6 +25,7 @@ Window {
 
             Text {
                 anchors.fill: parent
+//                anchors.centerIn: parent.Center
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 text: "bold"
@@ -34,16 +35,11 @@ Window {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-//                    fontIndex++
-                    console.log("onClicked : ", fontIndex)
-                    if (0 == fontIndex) {
-                        fontIndex = 1
-                        custom.select_enum = 1
-
-//                        //custom.select_enum = 0
-//                        console.log("select_enum #1 : ", custom.select_enum)
-////                        console.log("custom.select_enum #1 : ", custom.select_enum)
-                    }
+                    custom.select_enum = 1
+//                    if (0 == fontIndex) {
+//                        fontIndex = 1
+//                        custom.select_enum = 1
+//                    }
                 }
             }
 
@@ -55,7 +51,7 @@ Window {
             height: 100
             color: "yellow"
             anchors.left: rect1.right
-            anchors.leftMargin: 300
+            anchors.leftMargin: 100
             anchors.top: rect1.top
 
             Text {
@@ -68,17 +64,40 @@ Window {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-//                    fontIndex++
-                    console.log("onClicked : ", fontIndex)
-                    if (1 == fontIndex) {
+                    custom.select_enum = 0
+//                    if (1 == fontIndex) {
+//                        fontIndex = 0
+//                        custom.select_enum = 0
+//                    }
+                }
+            }
+        }
 
-                        fontIndex = 0
-//                        custom.select_enum = 1
-                        custom.select_enum = 0
+        Rectangle {
+            id: rect3
+            width: 100
+            height: 100
+            color: "green"
+            anchors.left: rect2.right
+            anchors.leftMargin: 100
+            anchors.top: rect2.top
 
-//                        console.log("else")
+            Text {
+                anchors.fill: parent
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                text: "italic"
+            }
 
-                    }
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    custom.select_enum = 2
+
+//                    if (1 == fontIndex) {
+//                        fontIndex = 0
+//                        custom.select_enum = 0
+//                    }
                 }
             }
         }
